@@ -1,0 +1,281 @@
+/* CSS Variables - Enhanced for more vibrant colors */
+:root {
+    --accent-1: #7367f0;
+    --accent-2: #a166ef;
+    --accent-3: #ff6b6b;
+    --accent-4: #4facfe;
+    --accent-5: #42e695;
+    --bg-dark: #0a0a0a;
+    --card-bg: #121212;
+    --border-color: rgba(255, 255, 255, 0.1);
+    --card-border: 1px solid var(--border-color);
+    --card-radius: 12px;
+    --section-spacing: 4rem;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: #ffffff;
+    font-family: 'Inter', sans-serif;
+}
+
+/* Global Card Styling */
+.card-common {
+    background-color: var(--card-bg);
+    border: var(--card-border);
+    border-radius: var(--card-radius);
+    overflow: hidden;
+}
+
+.section-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+/* Gradients with enhanced vibrancy */
+.main-gradient {
+    background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+}
+
+.title-gradient {
+    background: linear-gradient(90deg, #FFFFFF, var(--accent-1));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+/* Vibrant Gradient Styles */
+.gradient-1 {
+    background: linear-gradient(to right, #4776E6, #8E54E9);
+}
+
+.gradient-2 {
+    background: linear-gradient(to right, #2bd2ff, #2bffc9); 
+}
+
+.gradient-3 {
+    background: linear-gradient(to right, #FF416C, #FF4B2B);
+}
+
+.gradient-4 {
+    background: linear-gradient(to right, #00c6fb, #005bea);
+}
+
+.gradient-5 {
+    background: linear-gradient(to right, #a18cd1, #fbc2eb);
+}
+
+.gradient-7 {
+    background: linear-gradient(to right, #43cea2, #185a9d);
+}
+
+.gradient-8 {
+    background: linear-gradient(to right, #4facfe, #00f2fe);
+}
+
+.gradient-9 {
+    background: linear-gradient(to right, #ff6b6b, #ffa06b);
+}
+
+.gradient-10 {
+    background: linear-gradient(to right, #4facfe, #00f2fe);
+}
+
+.gradient-11 {
+    background: linear-gradient(to right, #7367f0, #a166ef);
+}
+
+.gradient-12 {
+    background: linear-gradient(to right, #ff0844, #ffb199);
+}
+
+.gradient-13 {
+    background: linear-gradient(to right, #42e695, #3bb2b8);
+}
+
+.gradient-14 {
+    background: linear-gradient(to right, #f857a6, #ff5858);
+}
+
+.gradient-15 {
+    background: linear-gradient(to right, #8E2DE2, #4A00E0);
+}
+
+.gradient-16 {
+    background: linear-gradient(to right, #FFD700, #FF8C00);
+}
+
+/* Badge Styling - Enhanced with more color */
+.badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    border-radius: 9999px;
+    background-color: rgba(255, 255, 255, 0.07);
+    color: #ffffff;
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    position: relative;
+    overflow: hidden;
+}
+
+.badge::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--accent-1), var(--accent-3));
+    opacity: 0.15;
+    z-index: -1;
+}
+
+/* Section styles for consistent spacing */
+section {
+    margin-bottom: var(--section-spacing);
+    padding: 2rem 0;
+}
+
+/* Project Cards - Fix for View Details expansion */
+.project-card {
+    position: relative;
+    background-color: var(--card-bg);
+    border-radius: var(--card-radius);
+    border: var(--card-border);
+    overflow: hidden;
+}
+
+.project-card .gradient-bar {
+    height: 5px;
+    width: 100%;
+}
+
+.project-card-clickable {
+    cursor: pointer;
+    padding: 1.5rem;
+}
+
+.project-details {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+    padding: 0 1.5rem;
+    border-top: 1px solid transparent;
+}
+
+.project-card.active .project-details {
+    max-height: 500px;
+    padding: 1.5rem;
+    border-top-color: rgba(255, 255, 255, 0.1);
+}
+
+.arrow {
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+
+
+/* Enhanced card styles for toolkit items */
+.toolkit-card {
+    background-color: var(--card-bg);
+    border-radius: var(--card-radius);
+    border: var(--card-border);
+    padding: 1.25rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.toolkit-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 4px;
+    width: 100%;
+}
+
+/* Navigation Styling */
+.nav-link {
+    position: relative;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 500;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    height: 2px;
+    width: 0;
+    background: linear-gradient(to right, var(--accent-1), var(--accent-2));
+}
+
+.nav-link:hover, .nav-link.active {
+    color: #ffffff;
+}
+
+.nav-link:hover::after, .nav-link.active::after {
+    width: 100%;
+}
+
+/* Enhanced Hover Effects */
+.hover-effect {
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.hover-effect:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.glow-effect {
+    transition: box-shadow 0.3s ease;
+}
+
+.glow-effect:hover {
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+}
+
+/* Tech Icon Animation */
+.group:hover img {
+    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.3));
+}
+
+/* Mobile menu animations */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#mobile-menu {
+    animation: slideIn 0.3s ease-out forwards;
+}
+
+/* Project card animations */
+.project-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.project-overlay {
+    transition: opacity 0.3s ease;
+} 

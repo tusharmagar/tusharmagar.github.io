@@ -1,0 +1,1509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tushar Magar - Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+            position: relative;
+            overflow-x: hidden;
+            transition: background 0.5s ease;
+        }
+
+        /* Theme variables will be set dynamically via JS */
+        :root {
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --accent-color: #ffffff;
+            --card-bg: rgba(0, 0, 0, 0.2);
+            --card-border: rgba(255, 255, 255, 0.1);
+            --nav-bg: rgba(0, 0, 0, 0.5);
+        }
+
+        .dark-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+            backdrop-filter: blur(10px);
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.2); }
+        ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.2); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.3); }
+
+        /* Project Card Expansion Styling */
+        .project-card .project-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out, padding 0.3s ease, opacity 0.3s ease;
+            padding-top: 0;
+            padding-bottom: 0;
+            opacity: 0;
+            border-top: 1px solid transparent;
+        }
+
+        .project-card.active .project-details {
+            max-height: 500px; /* High enough to fit content */
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+            opacity: 1;
+            border-top-color: rgba(255, 255, 255, 0.1);
+            margin-top: 1rem;
+        }
+
+        .project-card-clickable {
+            cursor: pointer;
+            user-select: none;
+        }
+
+        /* Hover effect */
+        .hover-effect:hover {
+            transform: translateY(-2px);
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        .badge {
+            background-color: var(--card-bg);
+            color: var(--text-primary);
+            font-size: 0.75rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            transition: all 0.3s ease;
+            border: 1px solid var(--card-border);
+        }
+        
+        .badge:hover {
+            background-color: var(--card-bg);
+            border-color: var(--card-border-hover);
+        }
+
+        .title-gradient {
+            color: var(--text-primary);
+            font-weight: bold;
+        }
+
+        /* Glow effects */
+        .glow-effect {
+            position: relative;
+        }
+        
+        .glow-effect::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: inherit;
+            box-shadow: 0 0 20px 2px rgba(255, 255, 255, 0.1);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+        
+        .glow-effect:hover::after {
+            opacity: 1;
+        }
+        
+        /* Skill icon styling */
+        .skill-icon {
+            width: 45px;
+            height: 45px;
+            object-fit: contain;
+        }
+
+        /* Link styling */
+        a.gradient-link {
+            color: var(--accent-color);
+            transition: all 0.3s ease;
+            position: relative;
+            font-weight: 500;
+            padding: 0.35rem 0.75rem;
+            border-radius: 0.375rem;
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
+        }
+
+        a.gradient-link::after {
+            content: '↗';
+            font-size: 0.85em;
+            opacity: 0.8;
+            transform: translateY(-1px);
+            transition: transform 0.2s ease;
+        }
+
+        a.gradient-link:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-1px);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        a.gradient-link:hover::after {
+            transform: translate(2px, -3px);
+        }
+
+        a.gradient-link:active {
+            transform: translateY(0);
+        }
+
+        /* Project card link container styling */
+        .project-details .flex.space-x-4 {
+            margin-top: 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        /* Nav link styling */
+        .nav-link {
+            color: var(--text-primary) !important; /* Force the theme color */
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: var(--accent-color) !important; /* Brighten on hover */
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        /* Card styling */
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 0.75rem;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-2px);
+            border-color: var(--card-border-hover);
+        }
+        
+        /* General text colors */
+        .text-primary {
+            color: var(--text-primary);
+        }
+        
+        .text-secondary {
+            color: var(--text-secondary);
+        }
+        
+        /* Background overlay */
+        .bg-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        /* Glass effect for nav */
+        .glass-nav {
+            background-color: var(--nav-bg);
+            backdrop-filter: blur(8px);
+        }
+
+        /* Theme-responsive toolkit cards */
+        .theme-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+            backdrop-filter: blur(10px);
+            border-radius: 0.75rem;
+            transition: all 0.3s ease;
+        }
+
+        .theme-card:hover {
+            background-color: var(--card-bg);
+            border-color: var(--card-border-hover);
+            transform: translateY(-2px);
+        }
+        
+        /* Theme-responsive hover effect */
+        .theme-hover:hover {
+            background-color: var(--card-bg);
+        }
+
+        /* Badge styling to be theme-responsive */
+        .theme-badge {
+            background-color: var(--card-bg);
+            color: var(--text-primary);
+            border: 1px solid var(--card-border);
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="text-primary antialiased">
+    <div class="bg-overlay"></div>
+
+    <nav class="sticky top-0 z-50 glass-nav border-b border-white/10">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-xl font-semibold text-primary">Tushar Magar</a>
+            <div class="hidden md:flex space-x-8">
+                <a href="#about" class="nav-link text-primary">About</a>
+                <a href="#projects" class="nav-link text-primary">Projects</a>
+                <a href="#achievements" class="nav-link text-primary">Achievements</a>
+                <a href="#toolkit" class="nav-link text-primary">Toolkit</a>
+            </div>
+            <div class="md:hidden">
+                <button id="menu-toggle" class="text-primary focus:outline-none p-2 z-50 hover:bg-white/10 rounded-md transition-colors">
+                    <svg id="menu-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                    <svg id="close-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="md:hidden hidden fixed top-[70px] left-0 right-0 w-full z-50 py-6 px-4 glass-nav shadow-xl">
+            <div class="container mx-auto flex flex-col space-y-5">
+                <a href="#about" onclick="toggleMenu()" class="nav-link block py-3 px-4 text-lg theme-hover rounded-md transition-colors text-primary">About</a>
+                <a href="#projects" onclick="toggleMenu()" class="nav-link block py-3 px-4 text-lg theme-hover rounded-md transition-colors text-primary">Projects</a>
+                <a href="#achievements" onclick="toggleMenu()" class="nav-link block py-3 px-4 text-lg theme-hover rounded-md transition-colors text-primary">Achievements</a>
+                <a href="#toolkit" onclick="toggleMenu()" class="nav-link block py-3 px-4 text-lg theme-hover rounded-md transition-colors text-primary">Toolkit</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mx-auto px-4 sm:px-6 py-12 md:py-16 max-w-6xl">
+        
+        <!-- Hero Section -->
+        <section class="min-h-[70vh] flex items-center justify-center relative mb-24 overflow-hidden">
+            <div class="relative z-10 text-center px-4">
+                <h1 class="text-5xl md:text-7xl font-bold mb-6 text-primary leading-tight">
+                    Tushar Magar
+            </h1>
+                <div class="flex justify-center space-x-6">
+                    <a href="#about" class="px-6 py-3 rounded bg-white/20 hover:bg-white/30 backdrop-blur-sm transition duration-300 text-primary border border-white/30">
+                        About Me
+                    </a>
+                    <a href="#projects" class="px-6 py-3 rounded bg-white/20 hover:bg-white/30 backdrop-blur-sm transition duration-300 text-primary border border-white/30">
+                        View Projects
+                    </a>
+                </div>
+            </div>
+        </section>
+        
+        <!-- About Section -->
+        <section id="about" class="mb-24">
+            <div class="card p-8">
+                <div class="flex flex-col md:flex-row gap-12">
+                    <div class="md:w-1/3">
+                        <div class="overflow-hidden rounded-xl mb-6 border border-white/10 shadow-lg">
+                            <!-- Enhanced profile photo container -->
+                            <div class="relative aspect-square overflow-hidden bg-gradient-to-b from-black/10 to-transparent p-1">
+                                <img src="images/Tushar-headshot.jpeg" alt="Tushar Magar" 
+                                    class="w-full h-full object-cover object-center rounded-lg" 
+                                    style="image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges; transform: scale(1.01); filter: contrast(1.05) saturate(1.05);">
+                                <div class="absolute inset-0 shadow-inner pointer-events-none rounded-lg"></div>
+                            </div>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="flex space-x-5 justify-center md:justify-start">
+                                <a href="https://github.com/tusharmagar" class="text-primary hover:opacity-80 transition" target="_blank" rel="noopener noreferrer">
+                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" /></svg>
+                                </a>
+                                <a href="https://www.linkedin.com/in/tusharmagar/" class="text-primary hover:opacity-80 transition" target="_blank" rel="noopener noreferrer">
+                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                                </a>
+                                <a href="https://x.com/TusharMagar_" class="text-primary hover:opacity-80 transition" target="_blank" rel="noopener noreferrer">
+                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
+                                    </svg>
+                                </a>
+                                <a href="mailto:tushmag@gmail.com" class="text-primary hover:opacity-80 transition">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                                </a>
+                            </div>
+                            
+                            <div class="text-center md:text-left">
+                                <div class="text-sm text-secondary space-y-2">
+                                    <div class="flex items-center justify-center md:justify-start">
+                                        <svg class="w-4 h-4 mr-2 text-primary opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                                        <span>tushmag@gmail.com</span>
+                                    </div>
+                                    <div class="flex items-center justify-center md:justify-start">
+                                        <svg class="w-4 h-4 mr-2 text-primary opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                                        <span>Bangalore, Karnataka, India</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="md:w-2/3">
+                        <div class="space-y-6">
+                            <div>
+                                <h2 class="text-2xl font-semibold mb-6 pb-2 border-b border-white/10 text-primary inline-block">About Me</h2>
+                                <div class="space-y-4 text-secondary">
+                                    <p>
+                                        I'm passionate about simplifying workflows and creating efficient systems that empower teams to focus on delivering
+exceptional experiences. I love solving meaningful problems by blending technology and smart design, to build
+impactful solutions. I love working with people, understanding their needs, and crafting solutions that make a
+difference.
+                                    </p>
+                                    <p>
+                                        My background spans founding and bootstrapping AI-driven SaaS ventures, architecting Python-based automation pipelines on Azure with SQL backends, and winning IBM's global TechXchange Hackathon—demonstrating my entrepreneurial drive, swift execution, and knack for getting things done.
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <h3 class="text-lg font-medium mb-4 text-primary">Professional Experience</h3>
+                                <div class="space-y-6">
+                                    <!-- Daimyo Experience -->
+                                    <div class="relative pl-8 before:absolute before:left-0 before:top-0 before:bottom-0 before:w-[2px] before:bg-gradient-to-b before:from-transparent before:via-white/20 before:to-transparent">
+                                        <div class="absolute left-0 top-0 w-2 h-2 rounded-full bg-white/40 -translate-x-[3px]"></div>
+                                        <div class="experience-card">
+                                            <div class="flex justify-between items-start">
+                                                <div>
+                                                    <p class="font-medium text-primary">Founder</p>
+                                                    <p class="text-primary opacity-80 text-sm mb-2">Daimyo & ReviewSnipe — Jan 2024-Present</p>
+                                                </div>
+                                                <button class="experience-toggle text-xs text-secondary hover:text-primary transition">Show More</button>
+                                            </div>
+                                            <p class="text-secondary text-sm mb-2">
+                                                Helping restaurants make operations efficient and provide an extraordinary experience to customers.
+                                            </p>
+                                            <div class="experience-details hidden mt-3 pl-3 border-l border-white/10">
+                                                <ul class="list-disc list-inside mb-6 space-y-1 pl-2 text-secondary">
+                                                    <li>Waitlisted 40+ restaurants across India</li>
+                                                    <li>Currently running a beta test with 4 of the best restaurants in Bangalore</li>
+                                                    <li>In touch with almost all major restaurant tech providers in India</li>
+                                                    <li>Received on-stage shoutouts at two of Bangalore's biggest restaurant summits: NRAI Food Delivery Summit & FICCI South's Food Conference</li>
+                                                    <li>Backed by Microsoft for Startups and AWS for Startups</li>
+                                                    <li>1st place winner at IBM's TechXchange 2024 Hackathon for Generative AI Applications</li>
+                                                    <li>Top 7% of applicants to WTFund</li>
+                                                </ul>
+                                                <div class="mt-2">
+                                                    <span class="inline-block px-2 py-1 bg-white/10 rounded-full text-xs mr-1 mb-1">Application Programming Interfaces (API)</span>
+                                                    <span class="inline-block px-2 py-1 bg-white/10 rounded-full text-xs mr-1 mb-1">Python</span>
+                                                    <span class="inline-block px-2 py-1 bg-white/10 rounded-full text-xs mr-1 mb-1">+8 skills</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Founders, Inc. Experience -->
+                                    <div class="relative pl-8 before:absolute before:left-0 before:top-0 before:bottom-0 before:w-[2px] before:bg-gradient-to-b before:from-transparent before:via-white/20 before:to-transparent">
+                                        <div class="absolute left-0 top-0 w-2 h-2 rounded-full bg-white/40 -translate-x-[3px]"></div>
+                                        <div class="experience-card">
+                                            <div class="flex justify-between items-start">
+                                                <div>
+                                                    <p class="font-medium text-primary">Entrepreneur</p>
+                                                    <p class="text-primary opacity-80 text-sm mb-2">Founders, Inc. — Dec 2024-Jan 2025</p>
+                                                </div>
+                                                <button class="experience-toggle text-xs text-secondary hover:text-primary transition">Show More</button>
+                                            </div>
+                                            <p class="text-secondary text-sm mb-2">
+                                                Chosen for the first Cold Start cohort from hundreds of applications worldwide.
+                                            </p>
+                                            <div class="experience-details hidden mt-3 pl-3 border-l border-white/10">
+                                                <ul class="list-disc list-inside mb-6 space-y-1 pl-2 text-secondary">
+                                                    <li>Worked on my projects and gained meaningful traction</li>
+                                                    <li>Connected with some really cool people from across the globe</li>
+                                                    <li>Learned a lot from experienced and inspiring mentors</li>
+                                                </ul>
+                                                <div class="mt-2">
+                                                    <span class="inline-block px-2 py-1 bg-white/10 rounded-full text-xs mr-1 mb-1">Entrepreneurship</span>
+                                                    <span class="inline-block px-2 py-1 bg-white/10 rounded-full text-xs mr-1 mb-1">Business Development</span>
+                                                    <span class="inline-block px-2 py-1 bg-white/10 rounded-full text-xs mr-1 mb-1">+1 skill</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 </div>
+        </section>
+
+        <!-- Update Projects Section -->
+        <section id="projects" class="mb-24">
+            <div class="flex flex-col items-center mb-12">
+                <h2 class="text-3xl font-bold mb-3 text-primary">Projects</h2>
+                <p class="text-secondary max-w-xl text-center">A collection of my recent work spanning web applications, AI solutions, and mobile development.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project 1: Daimyo -->
+                <div class="project-card card overflow-hidden hover-effect glow-effect">
+                    <div class="project-card-clickable p-6">
+                        <div class="mb-4 rounded-lg overflow-hidden">
+                            <img src="images/daimyo.jpg" alt="Daimyo" class="w-full h-48 object-cover">
+                        </div>
+                        <h3 class="text-xl font-medium mb-2 text-primary">Daimyo</h3>
+                        <p class="mb-4 text-sm text-secondary">
+                            AI-powered business-intelligence copilot that automates reporting, alerts, and data queries for restaurants.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="badge">Python</span>
+                            <span class="badge">Azure</span>
+                            <span class="badge">LangChain</span>
+                        </div>
+                        <span class="text-sm font-medium flex items-center text-primary">View Details <span class="arrow ml-1 inline-block transition-transform duration-300">↓</span></span>
+                    </div>
+                    <div class="project-details px-6 text-sm border-t border-white/20">
+                        <p class="mb-3 text-secondary">Led end-to-end development of a WhatsApp-based chatbot and notification system that pulls in POS data (LucidPOS, ReserveGo) to generate on-demand reports, anomaly alerts, and natural-language insights.</p>
+                        <ul class="list-disc list-inside mb-6 space-y-1 pl-2 text-secondary">
+                            <li>Designed cloud infrastructure on Azure Functions for hourly data pipelines</li>
+                            <li>Implemented RAG-powered ad-hoc queries using WatsonX Granite & LangChain</li>
+                            <li>Beta-tested with 40+ waitlisted restaurants, saving 7–9 hours/week of manual work</li>
+                        </ul>
+                        <div class="flex flex-wrap gap-2">
+                            <a href="https://github.com/tusharmagar/TechXchange_Hackathon_Daimyo" class="gradient-link" target="_blank">View Code</a>
+                            <a href="https://www.daimyo.in/" class="gradient-link" target="_blank">Live Site</a>
+                            <a href="https://www.ibm.com/community/ibm-techxchange-conference-hackathon/" class="gradient-link" target="_blank">Hackathon</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2: ReviewSnipe -->
+                <div class="project-card card overflow-hidden hover-effect glow-effect">
+                    <div class="project-card-clickable p-6">
+                        <div class="mb-4 rounded-lg overflow-hidden">
+                            <img src="images/reviewsnipe.jpg" alt="ReviewSnipe" class="w-full h-48 object-cover">
+                        </div>
+                        <h3 class="text-xl font-medium mb-2 text-primary">ReviewSnipe</h3>
+                        <p class="mb-4 text-sm text-secondary">
+                            Automated Google review monitoring and AI-generated WhatsApp replies to boost customer engagement.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="badge">Python</span>
+                            <span class="badge">Flask</span>
+                            <span class="badge">Azure</span>
+                        </div>
+                        <span class="text-sm font-medium flex items-center text-primary">View Details <span class="arrow ml-1 inline-block transition-transform duration-300">↓</span></span>
+                    </div>
+                    <div class="project-details px-6 text-sm border-t border-white/20">
+                        <p class="mb-3 text-secondary">Built a serverless pipeline that fetches Google reviews hourly, analyzes sentiment, and sends real-time alerts with AI-suggested replies via WhatsApp.</p>
+                        <ul class="list-disc list-inside mb-6 space-y-1 pl-2 text-secondary">
+                            <li>Integrated with Google Business Profile API for review monitoring</li>
+                            <li>Implemented daily summary reports and a React dashboard for clients</li>
+                            <li>Delivered a robust OAuth flow and scalable architecture for managing hundreds of reviews</li>
+                        </ul>
+                        <div class="flex flex-wrap gap-2">
+                            <a href="https://www.reviewsnipe.com/" class="gradient-link" target="_blank">Live Site</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3: Smart Charging Module -->
+                <div class="project-card card overflow-hidden hover-effect glow-effect">
+                    <div class="project-card-clickable p-6">
+                        <div class="mb-4 rounded-lg overflow-hidden">
+                            <img src="images/IEEE.png" alt="Smart Charging Module" class="w-full h-48 object-cover">
+                        </div>
+                        <h3 class="text-xl font-medium mb-2 text-primary">Smart Charging Module</h3>
+                        <p class="mb-4 text-sm text-secondary">
+                            An intelligent charging controller that optimizes battery health through adaptive current regulation.
+                        </p>
+                         <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="badge">C/C++</span>
+                            <span class="badge">Embedded Systems</span>
+                            <span class="badge">PCB Design</span>
+                        </div>
+                        <span class="text-sm font-medium flex items-center text-primary">View Details <span class="arrow ml-1 inline-block transition-transform duration-300">↓</span></span>
+                    </div>
+                    <div class="project-details px-6 text-sm border-t border-white/20">
+                        <p class="mb-3 text-secondary">Designed and prototyped a capstone system featuring a smart algorithm that monitors battery voltage and temperature to dynamically adjust charging current.</p>
+                        <ul class="list-disc list-inside mb-6 space-y-1 pl-2 text-secondary">
+                            <li>Developed firmware for a microcontroller (PIC/AVR)</li>
+                            <li>Laid out the PCB and validated performance improvements</li>
+                            <li>Results published in an IEEE conference paper</li>
+                        </ul>
+                        <div class="flex flex-wrap gap-2">
+                            <a href="https://ieeexplore.ieee.org/document/10607290" class="gradient-link" target="_blank">IEEE Paper</a>
+                    </div>
+                 </div>
+                </div>
+
+                <!-- Project 4: Arduino Pocket Watch -->
+                <div class="project-card card overflow-hidden hover-effect glow-effect">
+                    <div class="project-card-clickable p-6">
+                        <div class="mb-4 rounded-lg overflow-hidden">
+                            <img src="images/pocketwatch.jpg" alt="Arduino Pocket Watch" class="w-full h-48 object-cover">
+                        </div>
+                        <h3 class="text-xl font-medium mb-2 text-primary">Arduino Pocket Watch</h3>
+                        <p class="mb-4 text-sm text-secondary">
+                            A wearable Arduino-powered pocket watch that tells time and runs mini-games.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="badge">Arduino (C++)</span>
+                            <span class="badge">OLED Display</span>
+                            <span class="badge">Game Development</span>
+                        </div>
+                        <span class="text-sm font-medium flex items-center text-primary">View Details <span class="arrow ml-1 inline-block transition-transform duration-300">↓</span></span>
+                    </div>
+                    <div class="project-details px-6 text-sm border-t border-white/20">
+                        <p class="mb-3 text-secondary">Built a compact pocket watch with a 0.96″ OLED display that shows time and hosts simple games (e.g., Snake).</p>
+                        <ul class="list-disc list-inside mb-6 space-y-1 pl-2 text-secondary">
+                            <li>Integrated tactile buttons for navigation and game control</li>
+                            <li>Optimized for low-power operation and portability</li>
+                            <li>Documented the entire process on Hackster.io</li>
+                        </ul>
+                        <div class="flex flex-wrap gap-2">
+                            <a href="https://www.hackster.io/tusharmagar/arduboy-pocket-watch-d19a1c" class="gradient-link" target="_blank">View Project</a>
+                            <a href="https://www.hackster.io/contests/arduboycontest#category-905" class="gradient-link" target="_blank">Contest</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 5: Theia -->
+                <div class="project-card card overflow-hidden hover-effect glow-effect">
+                    <div class="project-card-clickable p-6">
+                        <div class="mb-4 rounded-lg overflow-hidden">
+                            <img src="images/theia.png" alt="Theia" class="w-full h-48 object-cover">
+                        </div>
+                        <h3 class="text-xl font-medium mb-2 text-primary">Theia</h3>
+                        <p class="mb-4 text-sm text-secondary">
+                            Wearable assistive tech delivering audio & haptic feedback for enhanced spatial awareness.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="badge">Python</span>
+                            <span class="badge">Raspberry Pi</span>
+                            <span class="badge">Sensors</span>
+                        </div>
+                        <span class="text-sm font-medium flex items-center text-primary">View Details <span class="arrow ml-1 inline-block transition-transform duration-300">↓</span></span>
+                    </div>
+                    <div class="project-details px-6 text-sm border-t border-white/20">
+                        <p class="mb-3 text-secondary">Developed a prototype wearable that scans the environment with ultrasonic sensors and communicates distance via audio cues and vibration.</p>
+                        <ul class="list-disc list-inside mb-6 space-y-1 pl-2 text-secondary">
+                            <li>Wrote real-time sensor-fusion code for accurate proximity detection</li>
+                            <li>Designed ergonomic enclosures for the wearable device</li>
+                            <li>Tested user navigation improvements for the visually impaired</li>
+                        </ul>
+                        <div class="flex flex-wrap gap-2">
+                            <a href="https://github.com/tusharmagar/THEIA" class="gradient-link" target="_blank">View Code</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 6: Babylon -->
+                <div class="project-card card overflow-hidden hover-effect glow-effect">
+                    <div class="project-card-clickable p-6">
+                        <div class="mb-4 rounded-lg overflow-hidden">
+                            <img src="images/mojikaraoke.png" alt="Babylon" class="w-full h-48 object-cover">
+                        </div>
+                        <h3 class="text-xl font-medium mb-2 text-primary">Babylon</h3>
+                        <p class="mb-4 text-sm text-secondary">
+                            AI-driven VJ system creating audio-reactive visuals for live music performances.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="badge">Python</span>
+                            <span class="badge">OpenAI Whisper</span>
+                            <span class="badge">Stable Diffusion</span>
+                        </div>
+                        <span class="text-sm font-medium flex items-center text-primary">View Details <span class="arrow ml-1 inline-block transition-transform duration-300">↓</span></span>
+                    </div>
+                    <div class="project-details px-6 text-sm border-t border-white/20">
+                        <p class="mb-3 text-secondary">Engineered a pipeline that transcribes audio, analyzes BPM, and auto-generates stylized visuals in sync with music.</p>
+                        <ul class="list-disc list-inside mb-6 space-y-1 pl-2 text-secondary">
+                            <li>Combined Whisper-based transcription for accurate lyric detection</li>
+                            <li>Used Librosa-based beat detection for rhythm synchronization</li>
+                            <li>Integrated AI image generation for immersive club visuals and karaoke overlays</li>
+                        </ul>
+                        <div class="flex flex-wrap gap-2">
+                            <a href="https://x.com/TusharMagar_/status/1877554582068588733" class="gradient-link" target="_blank">Demo 1</a>
+                            <a href="https://x.com/TusharMagar_/status/1873954681489416638" class="gradient-link" target="_blank">Demo 2</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Additional Projects (Hidden by Default) -->
+            <div id="more-projects" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8 hidden">
+                <!-- Project 7: Personal Portfolio Website -->
+                <div class="project-card card overflow-hidden hover-effect glow-effect">
+                    <div class="project-card-clickable p-6">
+                        <div class="mb-4 rounded-lg overflow-hidden">
+                            <img src="images/portfolio.png" alt="Personal Portfolio Website" class="w-full h-48 object-cover">
+                        </div>
+                        <h3 class="text-xl font-medium mb-2 text-primary">Personal Portfolio Website</h3>
+                        <p class="mb-4 text-sm text-secondary">
+                            A sleek single-page site showcasing my skills, projects, and journey.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="badge">Tailwind CSS</span>
+                            <span class="badge">JavaScript</span>
+                            <span class="badge">Responsive Design</span>
+                        </div>
+                        <span class="text-sm font-medium flex items-center text-primary">View Details <span class="arrow ml-1 inline-block transition-transform duration-300">↓</span></span>
+                    </div>
+                    <div class="project-details px-6 text-sm border-t border-white/20">
+                        <p class="mb-3 text-secondary">Designed and deployed a responsive, one-page portfolio with dedicated sections for about, projects, achievements, and contact.</p>
+                        <ul class="list-disc list-inside mb-6 space-y-1 pl-2 text-secondary">
+                            <li>Implemented dynamic theme system with 40+ gradients</li>
+                            <li>Focused on fast load times and accessible UI</li>
+                            <li>Created clear navigation to highlight key accomplishments</li>
+                        </ul>
+                        <div class="flex flex-wrap gap-2">
+                            <a href="#" class="gradient-link">You're looking at it!</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 8: Electronics & Hardware Projects -->
+                <div class="project-card card overflow-hidden hover-effect glow-effect">
+                    <div class="project-card-clickable p-6">
+                        <div class="mb-4 rounded-lg overflow-hidden">
+                            <img src="images/hardware.jpeg" alt="Electronics & Hardware Projects" class="w-full h-48 object-cover">
+                        </div>
+                        <h3 class="text-xl font-medium mb-2 text-primary">Electronics & Hardware Projects</h3>
+                        <p class="mb-4 text-sm text-secondary">
+                            A showcase of DIY hardware hacks blending microcontrollers and sensors into real-world automations.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="badge">Arduino</span>
+                            <span class="badge">Raspberry Pi</span>
+                            <span class="badge">C/C++</span>
+                        </div>
+                        <span class="text-sm font-medium flex items-center text-primary">View Details <span class="arrow ml-1 inline-block transition-transform duration-300">↓</span></span>
+                    </div>
+                    <div class="project-details px-6 text-sm border-t border-white/20">
+                        <p class="mb-3 text-secondary">Created multiple hardware projects including RFID-based college attendance systems, automated game players, touchless devices, and more.</p>
+                        <ul class="list-disc list-inside mb-6 space-y-1 pl-2 text-secondary">
+                            <li>Designed RFID-based college attendance & foot-traffic analyzer</li>
+                            <li>Built an automated Chrome dinosaur-game player</li>
+                            <li>Created touchless sanitizer dispensers and RC cars</li>
+                            <li>Documented schematics, code, and build steps for each project</li>
+                        </ul>
+                        <div class="flex flex-wrap gap-2">
+                            <a href="#" class="gradient-link">Details upon request</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 9: GitHub Contributions Chart Text -->
+                <div class="project-card card overflow-hidden hover-effect glow-effect">
+                    <div class="project-card-clickable p-6">
+                        <div class="mb-4 rounded-lg overflow-hidden">
+                            <img src="images/github-contributions.jpeg" alt="GitHub Contributions Chart Text" class="w-full h-48 object-cover">
+                        </div>
+                        <h3 class="text-xl font-medium mb-2 text-primary">GitHub Contributions Chart Text</h3>
+                        <p class="mb-4 text-sm text-secondary">
+                            A Python CLI tool that maps custom messages onto GitHub's contributions heatmap.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="badge">Python</span>
+                            <span class="badge">Git</span>
+                            <span class="badge">GitHub API</span>
+                        </div>
+                        <span class="text-sm font-medium flex items-center text-primary">View Details <span class="arrow ml-1 inline-block transition-transform duration-300">↓</span></span>
+                    </div>
+                    <div class="project-details px-6 text-sm border-t border-white/20">
+                        <p class="mb-3 text-secondary">Developed a command-line utility that calculates and schedules commits to render words or shapes on the GitHub contributions graph.</p>
+                        <ul class="list-disc list-inside mb-6 space-y-1 pl-2 text-secondary">
+                            <li>Built smart date calculation algorithm for precise graphics</li>
+                            <li>Automated repository updates for seamless visual messages</li>
+                            <li>Created an easy-to-use interface for generating custom patterns</li>
+                        </ul>
+                        <div class="flex flex-wrap gap-2">
+                            <a href="https://github.com/tusharmagar/GitHub-ContributionsChart-text" class="gradient-link" target="_blank">View Code</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flex justify-center mt-12">
+                <button id="view-more-btn" class="px-6 py-3 rounded-md card hover:bg-[rgba(255,255,255,0.1)] transition text-primary">
+                    View More Projects
+                </button>
+            </div>
+        </section>
+
+        <!-- Achievements Section with glass morphism styling -->
+        <section id="achievements" class="mb-24">
+            <div class="flex flex-col items-center mb-12">
+              <h2 class="text-3xl font-bold mb-3 text-primary">Achievements</h2>
+              <p class="text-secondary max-w-xl text-center">
+                Recognition and milestones from my professional journey.
+                    </p>
+                </div>
+
+            <!-- Hackathons & Contests -->
+            <details class="mb-12" open>
+              <summary class="text-2xl font-semibold mb-4 pb-2 border-b border-white/10 text-primary cursor-pointer">
+                Hackathons &amp; Contests
+              </summary>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-8 pt-4">
+                <!-- 1 -->
+                <div class="card p-6 relative hover-effect glow-effect">
+                  <h4 class="text-xl font-medium mb-2 text-primary">1st Place: IBM TechXchange Global Hackathon</h4>
+                  <p class="mb-4 text-secondary">Oct 2024 &bull; Issued by IBM</p>
+                  <p class="text-secondary">
+                    Daimyo secured 1st place out of 4,200+ teams from 128 countries at IBM's TechXchange 2024 Hackathon.
+                    </p>
+                </div>
+                <!-- 2 -->
+                <div class="card p-6 relative hover-effect glow-effect">
+                  <h4 class="text-xl font-medium mb-2 text-primary">Top 5 Finalist: Adecco CEO For One Month India</h4>
+                  <p class="mb-4 text-secondary">May 2023 &bull; Issued by Adecco</p>
+                  <p class="text-secondary">
+                    Selected among the top 5 finalists out of 33,359 applicants nationwide.
+                  </p>
+                </div>
+                <!-- 3 -->
+                <div class="card p-6 relative hover-effect glow-effect">
+                  <h4 class="text-xl font-medium mb-2 text-primary">3rd Place: Dot Slash Hackathon</h4>
+                  <p class="mb-4 text-secondary">Apr 2022 &bull; Issued by PES University</p>
+                  <p class="text-secondary">
+                    Awarded 3rd place at PES University's Dot Slash Hackathon.
+                  </p>
+                </div>
+                <!-- 4 -->
+                <div class="card p-6 relative hover-effect glow-effect">
+                  <h4 class="text-xl font-medium mb-2 text-primary">2nd Place: PowerToFly Flagship Hackathon 2022</h4>
+                  <p class="mb-4 text-secondary">Apr 2022 &bull; Issued by PowerToFly</p>
+                  <p class="text-secondary">
+                    Built THEIA (a wearable assistive device) and finished 2nd among global submissions.
+                  </p>
+                </div>
+                <!-- 5 -->
+                <div class="card p-6 relative hover-effect glow-effect">
+                  <h4 class="text-xl font-medium mb-2 text-primary">Top 10 Maker: Maker Mela 2022</h4>
+                  <p class="mb-4 text-secondary">Jan 2022 &bull; Issued by Maker Mela</p>
+                  <p class="text-secondary">
+                    Featured as one of the top 10 makers at India's largest maker fair.
+                  </p>
+                </div>
+                <!-- 6 -->
+                <div class="card p-6 relative hover-effect glow-effect">
+                  <h4 class="text-xl font-medium mb-2 text-primary">2nd Place: Terra Nova Ideathon</h4>
+                  <p class="mb-4 text-secondary">Sep 2021 &bull; Issued by PES University</p>
+                  <p class="text-secondary">
+                    Placed second in a space-themed ideathon at PES University.
+                  </p>
+                </div>
+                <!-- 7 -->
+                <div class="card p-6 relative hover-effect glow-effect">
+                  <h4 class="text-xl font-medium mb-2 text-primary">Runner-Up: DIY Arduboy Contest</h4>
+                  <p class="mb-4 text-secondary">Jul 2021 &bull; Issued by Hackster.io</p>
+                  <p class="text-secondary">
+                    Earned runner-up for the Arduino Pocket Watch project.
+                  </p>
+                </div>
+                <!-- 8 -->
+                <div class="card p-6 relative hover-effect glow-effect">
+                  <h4 class="text-xl font-medium mb-2 text-primary">1st Place: C.O.D.S Idealoop</h4>
+                  <p class="mb-4 text-secondary">Feb 2021 &bull; Issued by PES University</p>
+                  <p class="text-secondary">
+                    Won with an Interplanetary Communication System concept.
+                  </p>
+                </div>
+                <!-- 9 -->
+                <div class="card p-6 relative hover-effect glow-effect">
+                  <h4 class="text-xl font-medium mb-2 text-primary">2nd Place: SpaceJam Hackathon (General Track)</h4>
+                  <p class="mb-4 text-secondary">Feb 2021 &bull; Issued by PES University</p>
+                  <p class="text-secondary">
+                    Achieved 2nd place with an Arduino–Python hybrid prototype.
+                  </p>
+                </div>
+              </div>
+            </details>
+          
+            <!-- Publications & Speaking -->
+            <details class="mb-12" open>
+              <summary class="text-2xl font-semibold mb-4 pb-2 border-b border-white/10 text-primary cursor-pointer">
+                Publications &amp; Speaking
+              </summary>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-8 pt-4">
+                <!-- IEEE Paper -->
+                <div class="card p-6 relative hover-effect glow-effect">
+                  <h4 class="text-xl font-medium mb-2 text-primary">IEEE Conference Paper</h4>
+                  <p class="mb-4 text-secondary">2024 &bull; Published on IEEE Xplore</p>
+                  <p class="text-secondary mb-4">
+                    "Smart Charging Module for Controlled Charging of Mobile Devices" presented and published in an IEEE conference paper.
+                  </p>
+                  <a href="https://ieeexplore.ieee.org/document/10607290" class="gradient-link">
+                    View on IEEE Xplore
+                  </a>
+                </div>
+                <!-- Speaker -->
+                <div class="card p-6 relative hover-effect glow-effect">
+                  <h4 class="text-xl font-medium mb-2 text-primary">Speaker: IBM TechXchange 2025</h4>
+                  <p class="mb-4 text-secondary">Feb 2025 &bull; Issued by IBM</p>
+                  <p class="text-secondary">
+                    Delivered a talk on RAG systems and AI integration at IBM's flagship developer conference.
+                  </p>
+                </div>
+              </div>
+            </details>
+          
+            <!-- Recognitions & Fellowships -->
+            <details class="mb-12" open>
+              <summary class="text-2xl font-semibold mb-4 pb-2 border-b border-white/10 text-primary cursor-pointer">
+                Recognitions &amp; Fellowships
+              </summary>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-8 pt-4">
+                <div class="card p-6 relative hover-effect glow-effect">
+                  <h4 class="text-xl font-medium mb-2 text-primary">Cold Start Cohort • Founders, Inc.</h4>
+                  <p class="text-secondary">
+                    Chosen for the inaugural Cold Start accelerator cohort to build and scale ventures with expert mentorship.
+                  </p>
+                </div>
+                <div class="card p-6 relative hover-effect glow-effect">
+                  <h4 class="text-xl font-medium mb-2 text-primary">Top 7% Finalist: WTFund</h4>
+                  <p class="text-secondary">
+                    Ranked in the top 7% of global applicants to this startup accelerator.
+                  </p>
+                </div>
+                <div class="card p-6 relative hover-effect glow-effect">
+                  <h4 class="text-xl font-medium mb-2 text-primary">Microsoft for Startups</h4>
+                  <p class="text-secondary">
+                    Accepted into Microsoft's program supporting early-stage tech ventures.
+                  </p>
+                </div>
+                <div class="card p-6 relative hover-effect glow-effect">
+                  <h4 class="text-xl font-medium mb-2 text-primary">AWS for Startups</h4>
+                  <p class="text-secondary">
+                    Backed by AWS's initiative to empower startup growth.
+                  </p>
+                </div>
+              </div>
+            </details>
+          
+            <!-- Adrenaline Adventures -->
+            <details class="mb-12" open>
+              <summary class="text-2xl font-semibold mb-4 pb-2 border-b border-white/10 text-primary cursor-pointer">
+                Adrenaline Adventures
+              </summary>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-8 pt-4">
+                <!-- SkyJump -->
+                <div class="card p-6 relative hover-effect glow-effect">
+                  <h4 class="text-xl font-medium mb-2 text-primary">
+                    SkyJump Las Vegas: World's Highest Commercial Decelerator Descent
+                  </h4>
+                  <p class="mb-4 text-secondary">Apr 2024 &bull; The STRAT Hotel, Casino &amp; Tower</p>
+                  <p class="text-secondary">
+                    Leapt a controlled open-air descent from the 108th-floor launch pad—829 ft above the Las Vegas Strip—reaching speeds up to 40 mph. Holds the Guinness World Record for highest commercial decelerator descent.
+                  </p>
+                </div>
+                <!-- Bike Ride -->
+                <div class="card p-6 relative hover-effect glow-effect">
+                  <h4 class="text-xl font-medium mb-2 text-primary">1000 km Bike Ride: Seattle → San Francisco</h4>
+                  <p class="mb-4 text-secondary">2018 &bull; Group expedition of five</p>
+                  <p class="text-secondary">
+                    Completed a 1,000 km journey along the Pacific Coast Highway as part of a five-member team.
+                  </p>
+                </div>
+                <!-- Kedarkantha -->
+                <div class="card p-6 relative hover-effect glow-effect">
+                  <h4 class="text-xl font-medium mb-2 text-primary">Summited Kedarkantha</h4>
+                  <p class="mb-4 text-secondary">2016 &bull; Indian Himalayas</p>
+                  <p class="text-secondary">
+                    Climbed to 12,500 ft elevation on Kedarkantha peak.
+                  </p>
+                </div>
+                <!-- Rupin Pass -->
+                <div class="card p-6 relative hover-effect glow-effect">
+                  <h4 class="text-xl font-medium mb-2 text-primary">Summited Rupin Pass</h4>
+                  <p class="mb-4 text-secondary">2024 &bull; Uttarakhand, India</p>
+                  <p class="text-secondary">
+                    Traversed and summited the 15,250 ft Rupin Pass on a high-altitude trek.
+                  </p>
+                </div>
+              </div>
+            </details>
+        </section>
+
+
+
+        <!-- Toolkit & Skills Section -->
+        <section id="toolkit" class="mb-24">
+            <div class="container mx-auto px-6">
+                <div class="mb-12 text-center">
+                    <h2 class="text-4xl font-bold mb-4 text-primary">Toolkit & Skills</h2>
+                    <p class="text-secondary max-w-3xl mx-auto">Technologies, languages and frameworks I've mastered to deliver exceptional products and solutions.</p>
+                </div>
+                <div class="theme-card p-8 relative">
+                    <div class="space-y-14">
+                        <!-- Languages with tech icons -->
+                <div>
+                            <h3 class="text-xl font-medium mb-8 text-primary flex items-center">
+                                <svg class="w-5 h-5 mr-3 opacity-80" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 18l6-6-6-6"></path><path d="M8 6l-6 6 6 6"></path></svg>
+                                Languages
+                            </h3>
+                            
+                            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+                                <div class="theme-card flex flex-col items-center p-4 group">
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" alt="Python" class="w-16 h-16 mb-3" />
+                                    <span class="text-primary text-sm font-medium">Python</span>
+                        </div>
+                                
+                                <div class="theme-card flex flex-col items-center p-4 group">
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg" alt="TypeScript" class="w-16 h-16 mb-3" />
+                                    <span class="text-primary text-sm font-medium">TypeScript</span>
+                </div>
+                                
+                                <div class="theme-card flex flex-col items-center p-4 group">
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" alt="JavaScript" class="w-16 h-16 mb-3" />
+                                    <span class="text-primary text-sm font-medium">JavaScript</span>
+                                </div>
+                                
+                                <div class="theme-card flex flex-col items-center p-4 group">
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg" alt="SQL" class="w-16 h-16 mb-3" />
+                                    <span class="text-primary text-sm font-medium">SQL</span>
+                                </div>
+                                
+                                <div class="theme-card flex flex-col items-center p-4 group">
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg" alt="HTML" class="w-16 h-16 mb-3" />
+                                    <span class="text-primary text-sm font-medium">HTML/CSS</span>
+                                </div>
+                                
+                                <div class="theme-card flex flex-col items-center p-4 group">
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bash/bash-original.svg" alt="Bash" class="w-16 h-16 mb-3" />
+                                    <span class="text-primary text-sm font-medium">Bash</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Technical Skills with tech icons -->
+                <div>
+                            <h3 class="text-xl font-medium mb-8 text-primary flex items-center">
+                                <svg class="w-5 h-5 mr-3 opacity-80" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
+                                Technical Expertise
+                            </h3>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                <div class="theme-card p-5">
+                                    <h4 class="text-primary font-medium mb-4 flex items-center">
+                                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg" alt="Web" class="w-6 h-6 mr-3" />
+                                        Full Stack Development
+                                    </h4>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span class="badge">Next.js</span>
+                                        <span class="badge">React</span>
+                                        <span class="badge">TypeScript</span>
+                                        <span class="badge">Node.js</span>
+                                        <span class="badge">Tailwind CSS</span>
+                                        <span class="badge">Flask</span>
+                            </div>
+                </div>
+                                
+                                <div class="theme-card p-5">
+                                    <h4 class="text-primary font-medium mb-4 flex items-center">
+                                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/azure/azure-original.svg" alt="Cloud" class="w-6 h-6 mr-3" />
+                                        Cloud & DevOps
+                                    </h4>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span class="badge">Azure Functions</span>
+                                        <span class="badge">Azure Static Web Apps</span>
+                                        <span class="badge">Google Cloud</span>
+                                        <span class="badge">Vercel</span>
+                            </div>
+                        </div>
+                                
+                                <div class="theme-card p-5">
+                                    <h4 class="text-primary font-medium mb-4 flex items-center">
+                                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/firebase/firebase-plain.svg" alt="Database" class="w-6 h-6 mr-3" />
+                                        Database Systems
+                                    </h4>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span class="badge">Azure SQL</span>
+                                        <span class="badge">PostgreSQL</span>
+                                        <span class="badge">Firebase</span>
+                                        <span class="badge">JSON Stores</span>
+                                        <span class="badge">Vector Databases</span>
+                            </div>
+                        </div>
+                                
+                                <div class="theme-card p-5">
+                                    <h4 class="text-primary font-medium mb-4 flex items-center">
+                                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tensorflow/tensorflow-original.svg" alt="AI" class="w-6 h-6 mr-3" />
+                                        AI & Machine Learning
+                                    </h4>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span class="badge">GPT-4/OpenAI</span>
+                                        <span class="badge">LangChain</span>
+                                        <span class="badge">RAG Systems</span>
+                                        <span class="badge">Vector Databases</span>
+                            </div>
+                        </div>
+                                
+                                <div class="theme-card p-5">
+                                    <h4 class="text-primary font-medium mb-4 flex items-center">
+                                        <svg class="w-6 h-6 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                        </svg>
+                                        Automation & APIs
+                                    </h4>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span class="badge">Google Business Profile API</span>
+                                        <span class="badge">Outscraper</span>
+                                        <span class="badge">Twilio WhatsApp API</span>
+                                        <span class="badge">OAuth2.0</span>
+                                        <span class="badge">Google Sheets API</span>
+                            </div>
+                        </div>
+                                
+                                <div class="theme-card p-5">
+                                    <h4 class="text-primary font-medium mb-4 flex items-center">
+                                        <svg class="w-6 h-6 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                                        </svg>
+                                        Analytics & BI
+                                    </h4>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span class="badge">Power BI</span>
+                                        <span class="badge">SQL-based insights</span>
+                                        <span class="badge">Reporting automation</span>
+                                        <span class="badge">Data visualization</span>
+                            </div>
+                        </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Frameworks & Tools with tech icons -->
+                 <div>
+                            <h3 class="text-xl font-medium mb-8 text-primary flex items-center">
+                                <svg class="w-5 h-5 mr-3 opacity-80" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg>
+                                Libraries & Frameworks
+                            </h3>
+                            
+                            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+                                <div class="theme-card p-3 flex flex-col items-center">
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nextjs/nextjs-original.svg" alt="Next.js" class="w-12 h-12 mb-2 invert" />
+                                    <span class="text-primary text-xs font-medium">Next.js</span>
+                                </div>
+                                
+                                <div class="theme-card p-3 flex flex-col items-center">
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg" alt="Tailwind" class="w-12 h-12 mb-2" />
+                                    <span class="text-primary text-xs font-medium">TailwindCSS</span>
+                                </div>
+                                
+                                <div class="theme-card p-3 flex flex-col items-center">
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/flask/flask-original.svg" alt="Flask" class="w-12 h-12 mb-2" />
+                                    <span class="text-primary text-xs font-medium">Flask</span>
+                                </div>
+
+                                <div class="theme-card p-3 flex flex-col items-center">
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" alt="Git" class="w-12 h-12 mb-2" />
+                                    <span class="text-primary text-xs font-medium">Git</span>
+                                </div>
+                                
+                                <div class="theme-card p-3 flex flex-col items-center">
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg" alt="GitHub" class="w-12 h-12 mb-2 invert" />
+                                    <span class="text-primary text-xs font-medium">GitHub</span>
+                                </div>
+                                
+                                <div class="theme-card p-3 flex flex-col items-center">
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vscode/vscode-original.svg" alt="VS Code" class="w-12 h-12 mb-2" />
+                                    <span class="text-primary text-xs font-medium">VS Code</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Platforms & Tools -->
+                        <div>
+                            <h3 class="text-xl font-medium mb-8 text-primary flex items-center">
+                                <svg class="w-5 h-5 mr-3 opacity-80" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2H5z" />
+                                </svg>
+                                Platforms & Tools
+                            </h3>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                <div class="theme-card p-5">
+                                    <h4 class="text-primary font-medium mb-4">Cloud Platforms</h4>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span class="badge">Azure</span>
+                                        <span class="badge">AWS</span>
+                                        <span class="badge">Google Cloud Platform</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="theme-card p-5">
+                                    <h4 class="text-primary font-medium mb-4">DevOps & Scheduling</h4>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span class="badge">GitHub Actions</span>
+                                        <span class="badge">GitHub Pages</span>
+                                        <span class="badge">Task Scheduler</span>
+                                        <span class="badge">Azure-hosted cron jobs</span>
+                                        <span class="badge">Pabbly Connect</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="theme-card p-5">
+                                    <h4 class="text-primary font-medium mb-4">Design & Documentation</h4>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span class="badge">Figma</span>
+                                        <span class="badge">Notion</span>
+                                        <span class="badge">Canva</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Soft Skills -->
+                        <div>
+                            <h3 class="text-xl font-medium mb-8 text-primary flex items-center">
+                                <svg class="w-5 h-5 mr-3 opacity-80" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+                                Soft Skills
+                            </h3>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="theme-card p-5 flex">
+                                    <div class="mr-5 text-primary text-3xl">🚀</div>
+                                    <div>
+                                        <h4 class="text-primary font-medium mb-2">Product Management</h4>
+                                        <p class="text-secondary text-sm">Full product lifecycle from ideation through beta testing to iteration based on user feedback.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="theme-card p-5 flex">
+                                    <div class="mr-5 text-primary text-3xl">💼</div>
+                                    <div>
+                                        <h4 class="text-primary font-medium mb-2">Business Strategy</h4>
+                                        <p class="text-secondary text-sm">Pricing models, go-to-market strategies, and scaling SaaS applications to reach product-market fit.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="theme-card p-5 flex">
+                                    <div class="mr-5 text-primary text-3xl">📝</div>
+                                    <div>
+                                        <h4 class="text-primary font-medium mb-2">Technical Communication</h4>
+                                        <p class="text-secondary text-sm">Creating clear documentation, demos, and persuasive pitch decks that communicate technical concepts effectively.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="theme-card p-5 flex">
+                                    <div class="mr-5 text-primary text-3xl">🤝</div>
+                                    <div>
+                                        <h4 class="text-primary font-medium mb-2">Client Interaction</h4>
+                                        <p class="text-secondary text-sm">Building feedback loops, client onboarding, and managing expectations throughout project lifecycles.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="theme-card p-5 flex">
+                                    <div class="mr-5 text-primary text-3xl">👨‍💼</div>
+                                    <div>
+                                        <h4 class="text-primary font-medium mb-2">Leadership</h4>
+                                        <p class="text-secondary text-sm">Hackathon team leadership, solo founder experience, and guiding technical decision-making.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="theme-card p-5 flex">
+                                    <div class="mr-5 text-primary text-3xl">⚡</div>
+                                    <div>
+                                        <h4 class="text-primary font-medium mb-2">Resilience & Speed</h4>
+                                        <p class="text-secondary text-sm">Shipping MVPs rapidly, handling client requests efficiently, and pivoting products based on market feedback.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer class="border-t border-white/10 mt-16 relative z-10 glass-nav">
+        <div class="container mx-auto px-6 py-8 flex flex-col md:flex-row justify-between items-center">
+            <div class="text-center md:text-left mb-4 md:mb-0">
+                <p class="text-secondary text-sm">&copy; 2024 Tushar Magar. All rights reserved.</p>
+            </div>
+            <div class="flex flex-wrap gap-3">
+                <a href="https://github.com/tusharmagar" class="gradient-link" target="_blank">
+                    <svg class="w-5 h-5 mr-1" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" /></svg>
+                    GitHub
+                </a>
+                <a href="https://www.linkedin.com/in/tusharmagar/" class="gradient-link" target="_blank">
+                    <svg class="w-5 h-5 mr-1" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                    LinkedIn
+                </a>
+                <a href="mailto:tushmag@gmail.com" class="gradient-link">
+                    <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                    Email
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Add JavaScript (without script.js reference) -->
+    <script>
+        // Toggle menu function
+        function toggleMenu() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            const menuIcon = document.getElementById('menu-icon');
+            const closeIcon = document.getElementById('close-icon');
+            
+            console.log('Toggle elements found:', { 
+                mobileMenu: !!mobileMenu, 
+                menuIcon: !!menuIcon, 
+                closeIcon: !!closeIcon 
+            });
+            
+            if (mobileMenu) mobileMenu.classList.toggle('hidden');
+            if (menuIcon) menuIcon.classList.toggle('hidden');
+            if (closeIcon) closeIcon.classList.toggle('hidden');
+            
+            console.log('Menu toggled');
+        }
+        
+        // Collection of gradients
+        const gradients = [
+            // "linear-gradient(360deg, #020E1C 9.74%, #442D77 30.09%, #443E85 50.44%, #CCD3E7 70.79%, #E9B4A3 91.15%)",
+            "linear-gradient(360deg, #8A8C71 0%, #53634B 50%, #1D0F0D 100%)",
+            "linear-gradient(180deg, #010101 0%, #3E4970 33.33%, #919795 66.67%, #DDDCD6 100%)",
+            "linear-gradient(180deg, #BFCBD0 0%, #BFCBD0 33.33%, #F37C5E 66.67%, #F45937 100%)",
+            "linear-gradient(0deg, #010101 0%, #030408 33.33%, #7387F0 66.67%, #CCC8C4 100%)",
+            "linear-gradient(180deg, #180714 4.09%, #372F45 34.34%, #BD9DA3 64.59%, #E7E3E4 94.84%)",
+            "linear-gradient(180deg, #17170F 5.44%, #495D65 27.63%, #8A8877 49.83%, #CCAF7B 72.02%, #8C9989 94.21%)",
+            "linear-gradient(180deg, #406397 5.44%, #F0F2F0 35.03%, #F4EAD2 64.62%, #ECAD8C 94.21%)",
+            "linear-gradient(180deg, #3F1711 5.44%, #C12E1E 39.98%, #DF5038 59.84%, #CAD6BE 94.21%)",
+            "linear-gradient(180deg, #080A0E 8.46%, #72ACDB 50.17%, #83B756 91.88%)",
+            "linear-gradient(180deg, #0D1A3A 8.46%, #2367A3 30.98%, #D0BEAB 61.01%, #F17E3D 88.96%)",
+            // "linear-gradient(180deg, #85A3FF 6.57%, #E0E0FF 35.32%, #FFEA73 64.08%, #FF3716 90.66%)",
+            // "linear-gradient(180deg, #0A1F18 6.57%, #336A34 30.09%, #066545 61.47%, #EDE3D9 90.66%)",
+            "linear-gradient(180deg, #462A02 6.57%, #F6992C 30.09%, #818300 61.47%, #3E3E02 90.66%)",
+            // "linear-gradient(180deg, #FFFFFF 6.57%, #D992A8 30.09%, #C12E1E 61.47%, #630A00 90.66%)",
+            "linear-gradient(180deg, #302625 8.46%, #B19F87 30.98%, #F5F4F1 61.01%, #8CBACF 88.96%)",
+            "linear-gradient(180deg, #030407 8.46%, #34595A 30.98%, #66898C 61.01%, #7EA8AF 88.96%)",
+            "linear-gradient(180deg, #0C0C0C 8.46%, #59352E 30.98%, #997265 61.01%, #BDC3B7 88.96%)",
+            "linear-gradient(180deg, #0C151D 8.46%, #676549 30.98%, #B3ADAD 61.01%, #556394 88.96%)",
+            "linear-gradient(180deg, #504F4D 2.9%, #E7A754 50.89%, #989C9E 97.39%)",
+            // "linear-gradient(180deg, #F3F3F3 2.9%, #CBC3EA 50.89%, #FFD600 97.39%)",
+            "linear-gradient(180deg, #112220 2.9%, #63776B 50.89%, #FFFC81 97.39%)",
+            // "linear-gradient(180deg, #FFC200 2.9%, #DA220E 50.14%, #FF94BA 97.39%)",
+            "linear-gradient(180deg, #A3B886 2.9%, #B7C3C4 50.14%, #609BAF 97.39%)",
+            // "linear-gradient(180deg, #69251B 2.9%, #DA220E 34.08%, #FFC200 65.26%, #9DE3FF 97.39%)",
+            "linear-gradient(180deg, #69251B 2.9%, #DA220E 50.14%, #FFC200 97.39%)",
+            "linear-gradient(180deg, #C4C4C4 2.9%, #FFCFBA 50.14%, #FFAC52 97.39%)",
+            "linear-gradient(180deg, #FFE3E3 2.9%, #4795CA 50.14%, #3E539B 97.39%)",
+            "linear-gradient(180deg, #805883 2.9%, #C98B72 34.08%, #DCCCBB 64.79%, #DBDBDB 97.39%)",
+            "linear-gradient(360deg, #02021E 2.61%, #791F12 33.79%, #816D39 64.5%, #818181 97.1%)",
+            // "linear-gradient(180deg, #010040 6.57%, #5A438B 35.32%, #066074 64.08%, #002F13 90.66%)",
+            // "linear-gradient(180deg, #502912 6.57%, #CE6323 35.32%, #C6A655 64.08%, #002F13 90.66%)",
+            // "linear-gradient(180deg, #2B212B 6.57%, #844B82 35.32%, #F3366F 64.08%, #CCABC9 90.66%)",
+            // "linear-gradient(180deg, #DBE0E2 6.57%, #9FA4C8 30.09%, #9D9F33 61.47%, #002F13 90.66%)",
+            "linear-gradient(180deg, #FF3C29 6.57%, #E47E35 50.14%, #9FA4C8 93.71%)",
+            "linear-gradient(180deg, #071218 4.09%, #2F4542 34.34%, #BD9DBC 64.59%, #E4E3E7 94.84%)",
+            // "linear-gradient(180deg, #17170F 5.44%, #66659A 27.63%, #76B079 49.83%, #84B554 72.02%, #899996 94.21%)",
+            "linear-gradient(180deg, #7B4097 5.44%, #9BAEDF 35.03%, #F4EAD2 64.62%, #ECD18C 94.21%)",
+            // "linear-gradient(180deg, #FFADA1 5.44%, #F4A9BF 34.74%, #DF38BA 64.03%, #E47AFF 94.21%)",
+            "linear-gradient(180deg, #E1EBFF 2.46%, #327AB5 48.77%, #392609 95.07%)"
+        ];
+
+        // Utility: compute perceived luminance of a hex color
+        function hexLuminance(hex) {
+            const r = parseInt(hex.slice(1, 3), 16);
+            const g = parseInt(hex.slice(3, 5), 16);
+            const b = parseInt(hex.slice(5, 7), 16);
+            // Rec. 709 luminance formula
+            return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+        }
+
+        // New: decide light vs dark by averaging stops
+        function isLightGradient(gradient) {
+            // grab all "#xxxxxx" matches
+            const hexes = Array.from(
+                gradient.matchAll(/#([0-9A-F]{6})/gi),
+                m => "#" + m[1]
+            );
+            
+            // For gradients specified with rgb/rgba values instead of hex
+            if (hexes.length === 0) {
+                // Light gradients that need dark text - fallback to the old list for non-hex gradients
+                const lightGradients = [
+                    "linear-gradient(180deg, #BFCBD0 0%, #BFCBD0 33.33%, #F37C5E 66.67%, #F45937 100%)",
+                    "linear-gradient(180deg, #F3F3F3 2.9%, #CBC3EA 50.89%, #FFD600 97.39%)",
+                    "linear-gradient(180deg, #A3B886 2.9%, #B7C3C4 50.14%, #609BAF 97.39%)",
+                    "linear-gradient(180deg, #FFE3E3 2.9%, #4795CA 50.14%, #3E539B 97.39%)",
+                    "linear-gradient(180deg, #C4C4C4 2.9%, #FFCFBA 50.14%, #FFAC52 97.39%)",
+                    // "linear-gradient(180deg, #85A3FF 6.57%, #E0E0FF 35.32%, #FFEA73 64.08%, #FF3716 90.66%)",
+                    // "linear-gradient(180deg, #DBE0E2 6.57%, #9FA4C8 30.09%, #9D9F33 61.47%, #002F13 90.66%)",
+                    "linear-gradient(180deg, #E1EBFF 2.46%, #327AB5 48.77%, #392609 95.07%)"
+                ];
+                return lightGradients.includes(gradient);
+            }
+            
+            // compute average luminance
+            const avgLum = hexes.reduce((sum, h) => sum + hexLuminance(h), 0) / hexes.length;
+            // threshold ≈130–140 gives good readability; tweak if needed
+            return avgLum > 130;
+        }
+
+        // Function to apply a random gradient
+        function applyRandomGradient() {
+            // Get a random gradient
+            const randomIndex = Math.floor(Math.random() * gradients.length);
+            const chosen = gradients[randomIndex];
+            
+            // Apply the gradient to the background overlay
+            const bgOverlay = document.querySelector('.bg-overlay');
+            if (!bgOverlay) {
+                console.error('Background overlay element not found');
+                return;
+            }
+            
+            bgOverlay.style.background = chosen;
+            const root = document.documentElement;
+            console.log('🎨 current gradient →', chosen);
+            
+            if (isLightGradient(chosen)) {
+                // For light backgrounds, use dark text
+                root.style.setProperty('--text-primary', '#222222');
+                root.style.setProperty('--text-secondary', 'rgba(0, 0, 0, 0.7)');
+                root.style.setProperty('--accent-color', '#222222');
+                root.style.setProperty('--card-bg', 'rgba(255, 255, 255, 0.2)');
+                root.style.setProperty('--card-border', 'rgba(0, 0, 0, 0.1)');
+                root.style.setProperty('--card-border-hover', 'rgba(0, 0, 0, 0.2)');
+                root.style.setProperty('--nav-bg', 'rgba(255, 255, 255, 0.5)');
+            } else {
+                // For dark backgrounds, use light text
+                root.style.setProperty('--text-primary', '#ffffff');
+                root.style.setProperty('--text-secondary', 'rgba(255, 255, 255, 0.7)');
+                root.style.setProperty('--accent-color', '#ffffff');
+                root.style.setProperty('--card-bg', 'rgba(0, 0, 0, 0.2)');
+                root.style.setProperty('--card-border', 'rgba(255, 255, 255, 0.1)');
+                root.style.setProperty('--card-border-hover', 'rgba(255, 255, 255, 0.2)');
+                root.style.setProperty('--nav-bg', 'rgba(0, 0, 0, 0.5)');
+            }
+        }
+
+        // Apply a gradient when the page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Apply the random gradient
+            applyRandomGradient();
+            
+            // Get elements
+            const mobileMenu = document.getElementById('mobile-menu');
+            const menuToggle = document.getElementById('menu-toggle');
+            const moreProjects = document.getElementById('more-projects');
+            const viewMoreBtn = document.getElementById('view-more-btn');
+            
+            // bind a single handler to *all* project cards, initial + "more"
+            document.querySelectorAll('.project-card-clickable').forEach(card => {
+                card.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const parent = this.closest('.project-card');
+                    parent.classList.toggle('active');
+                    const arrow = this.querySelector('.arrow');
+                    if (arrow) {
+                        arrow.style.transform = parent.classList.contains('active')
+                            ? 'rotate(180deg)' : 'rotate(0deg)';
+                    }
+                    
+                    // Debug output
+                    console.log('Card clicked:', parent.classList.contains('active') ? 'Expanded' : 'Collapsed');
+                 });
+             });
+            
+            // Mobile menu toggle
+            if (menuToggle && mobileMenu) {
+                menuToggle.addEventListener('click', function() {
+                    toggleMenu(); // Use the existing toggleMenu function instead of directly toggling classes
+                });
+            }
+            
+            // Experience cards toggle
+            const experienceToggles = document.querySelectorAll('.experience-toggle');
+            experienceToggles.forEach(toggle => {
+                toggle.addEventListener('click', function() {
+                    const card = this.closest('.experience-card');
+                    const details = card.querySelector('.experience-details');
+                    
+                    // Toggle visibility
+                    details.classList.toggle('hidden');
+                    
+                    // Update button text
+                    if (details.classList.contains('hidden')) {
+                        this.textContent = 'Show More';
+                    } else {
+                        this.textContent = 'Show Less';
+                    }
+                });
+            });
+
+            // View More Projects functionality
+            if (viewMoreBtn && moreProjects) {
+                viewMoreBtn.addEventListener('click', function() {
+                    if (moreProjects.classList.contains('hidden')) {
+                        // Show more projects
+                        moreProjects.classList.remove('hidden');
+                        viewMoreBtn.textContent = 'Show Less';
+                        
+                        // Scroll to the new content with smooth animation
+                        setTimeout(() => {
+                            moreProjects.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }, 100);
+                    } else {
+                        // Hide more projects
+                        moreProjects.classList.add('hidden');
+                        viewMoreBtn.textContent = 'View More Projects';
+                        
+                        // Scroll back to main projects
+                        document.querySelector('#projects').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                });
+            }
+        });
+    </script>
+    
+    <style>
+        /* FIX: Add specific styles to ensure project details expand properly */
+        .project-card .project-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out, padding 0.3s ease, opacity 0.3s ease;
+            padding-top: 0;
+            padding-bottom: 0;
+            opacity: 0;
+            border-top: 1px solid transparent;
+        }
+        
+        .project-card.active .project-details {
+            max-height: 500px; /* High enough to fit content */
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+            opacity: 1;
+            border-top-color: rgba(255, 255, 255, 0.1);
+            margin-top: 1rem;
+        }
+        
+        /* Make sure clickable area works */
+        .project-card-clickable {
+            cursor: pointer;
+            user-select: none;
+        }
+        
+        /* Ensure arrow transitions smoothly */
+        .project-card-clickable .arrow {
+            transition: transform 0.3s ease;
+        }
+    </style>
+</body>
+</html>
