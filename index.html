@@ -19,9 +19,15 @@
             --text-primary: #ffffff;
             --text-secondary: rgba(255, 255, 255, 0.7);
             --accent-color: #ffffff;
+            --accent-color-rgb: 255, 255, 255;
             --card-bg: rgba(0, 0, 0, 0.2);
             --card-border: rgba(255, 255, 255, 0.1);
+            --card-border-hover: rgba(255, 255, 255, 0.2);
             --nav-bg: rgba(0, 0, 0, 0.5);
+            --success-color: #4ade80;
+            --success-color-rgb: 74, 222, 128;
+            --info-color: #38bdf8;
+            --info-color-rgb: 56, 189, 248;
         }
 
         .dark-card {
@@ -75,12 +81,32 @@
             padding: 0.25rem 0.75rem;
             border-radius: 9999px;
             transition: all 0.3s ease;
-            border: 1px solid var(--card-border);
+            border: 1px solid rgba(var(--accent-color-rgb), 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .badge::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to right, transparent, rgba(var(--accent-color-rgb), 0.2), transparent);
+            opacity: 0.1;
+            z-index: -1;
         }
         
         .badge:hover {
             background-color: var(--card-bg);
-            border-color: var(--card-border-hover);
+            border-color: rgba(var(--accent-color-rgb), 0.3);
+            transform: translateY(-1px);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .badge:hover::before {
+            opacity: 0.2;
         }
 
         .title-gradient {
@@ -120,15 +146,15 @@
 
         /* Link styling */
         a.gradient-link {
-            color: var(--accent-color);
+            color: var(--text-primary);
             transition: all 0.3s ease;
             position: relative;
             font-weight: 500;
             padding: 0.35rem 0.75rem;
             border-radius: 0.375rem;
-            background-color: rgba(255, 255, 255, 0.1);
+            background: linear-gradient(90deg, rgba(var(--accent-color-rgb), 0.1), rgba(var(--accent-color-rgb), 0.2));
             backdrop-filter: blur(4px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(var(--accent-color-rgb), 0.2);
             display: inline-flex;
             align-items: center;
             gap: 0.375rem;
@@ -143,7 +169,7 @@
         }
 
         a.gradient-link:hover {
-            background-color: rgba(255, 255, 255, 0.2);
+            background: linear-gradient(90deg, rgba(var(--accent-color-rgb), 0.2), rgba(var(--accent-color-rgb), 0.3));
             transform: translateY(-1px);
             box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
         }
@@ -254,8 +280,16 @@
         .theme-badge {
             background-color: var(--card-bg);
             color: var(--text-primary);
+            font-size: 0.75rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            transition: all 0.3s ease;
             border: 1px solid var(--card-border);
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
         }
+        
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
@@ -304,10 +338,10 @@
                     Tushar Magar
             </h1>
                 <div class="flex justify-center space-x-6">
-                    <a href="#about" class="px-6 py-3 rounded bg-white/20 hover:bg-white/30 backdrop-blur-sm transition duration-300 text-primary border border-white/30">
+                    <a href="#about" class="hero-btn px-6 py-3 rounded backdrop-blur-sm transition duration-300 text-primary" style="background: linear-gradient(90deg, rgba(var(--accent-color-rgb), 0.1), rgba(var(--accent-color-rgb), 0.2)); border: 1px solid rgba(var(--accent-color-rgb), 0.2);">
                         About Me
                     </a>
-                    <a href="#projects" class="px-6 py-3 rounded bg-white/20 hover:bg-white/30 backdrop-blur-sm transition duration-300 text-primary border border-white/30">
+                    <a href="#projects" class="hero-btn px-6 py-3 rounded backdrop-blur-sm transition duration-300 text-primary" style="background: linear-gradient(90deg, rgba(var(--accent-color-rgb), 0.1), rgba(var(--accent-color-rgb), 0.2)); border: 1px solid rgba(var(--accent-color-rgb), 0.2);">
                         View Projects
                     </a>
                 </div>
@@ -398,7 +432,7 @@ difference.
                                             <div class="experience-details hidden mt-3 pl-3 border-l border-white/10">
                                                 <ul class="list-disc list-inside mb-6 space-y-1 pl-2 text-secondary">
                                                     <li>Waitlisted 40+ restaurants across India</li>
-                                                    <li>Currently running a beta test with 4 of the best restaurants in Bangalore</li>
+                                                    <li>Ran a beta test with 4 of the best restaurants in Bangalore</li>
                                                     <li>In touch with almost all major restaurant tech providers in India</li>
                                                     <li>Received on-stage shoutouts at two of Bangalore's biggest restaurant summits: NRAI Food Delivery Summit & FICCI South's Food Conference</li>
                                                     <li>Backed by Microsoft for Startups and AWS for Startups</li>
@@ -454,7 +488,7 @@ difference.
         <section id="projects" class="mb-24">
             <div class="flex flex-col items-center mb-12">
                 <h2 class="text-3xl font-bold mb-3 text-primary">Projects</h2>
-                <p class="text-secondary max-w-xl text-center">A collection of my recent work spanning web applications, AI solutions, and mobile development.</p>
+                <p class="text-secondary max-w-xl text-center">A collection of my work spanning web applications, AI solutions, and electronics projects.</p>
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -472,6 +506,7 @@ difference.
                             <span class="badge">Python</span>
                             <span class="badge">Azure</span>
                             <span class="badge">LangChain</span>
+                            <span class="badge">Twilio</span>
                         </div>
                         <span class="text-sm font-medium flex items-center text-primary">View Details <span class="arrow ml-1 inline-block transition-transform duration-300">↓</span></span>
                     </div>
@@ -480,7 +515,7 @@ difference.
                         <ul class="list-disc list-inside mb-6 space-y-1 pl-2 text-secondary">
                             <li>Designed cloud infrastructure on Azure Functions for hourly data pipelines</li>
                             <li>Implemented RAG-powered ad-hoc queries using WatsonX Granite & LangChain</li>
-                            <li>Beta-tested with 40+ waitlisted restaurants, saving 7–9 hours/week of manual work</li>
+                            <li>Saved beta-test restaurants 7–9 hours/week of manual work</li>
                         </ul>
                         <div class="flex flex-wrap gap-2">
                             <a href="https://github.com/tusharmagar/TechXchange_Hackathon_Daimyo" class="gradient-link" target="_blank">View Code</a>
@@ -504,6 +539,7 @@ difference.
                             <span class="badge">Python</span>
                             <span class="badge">Flask</span>
                             <span class="badge">Azure</span>
+                            <span class="badge">Twilio</span>
                         </div>
                         <span class="text-sm font-medium flex items-center text-primary">View Details <span class="arrow ml-1 inline-block transition-transform duration-300">↓</span></span>
                     </div>
@@ -531,17 +567,17 @@ difference.
                             An intelligent charging controller that optimizes battery health through adaptive current regulation.
                         </p>
                          <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="badge">C/C++</span>
-                            <span class="badge">Embedded Systems</span>
+                            <span class="badge">C++</span>
+                            <span class="badge">Power electronics</span>
                             <span class="badge">PCB Design</span>
                         </div>
                         <span class="text-sm font-medium flex items-center text-primary">View Details <span class="arrow ml-1 inline-block transition-transform duration-300">↓</span></span>
                     </div>
                     <div class="project-details px-6 text-sm border-t border-white/20">
-                        <p class="mb-3 text-secondary">Designed and prototyped a capstone system featuring a smart algorithm that monitors battery voltage and temperature to dynamically adjust charging current.</p>
+                        <p class="mb-3 text-secondary">Built for PCloudy as our college capstone project, this system was designed to handle round-the-clock phone charging with continuous data transfer. </p>
                         <ul class="list-disc list-inside mb-6 space-y-1 pl-2 text-secondary">
-                            <li>Developed firmware for a microcontroller (PIC/AVR)</li>
-                            <li>Laid out the PCB and validated performance improvements</li>
+                            <li>Developed a charge-controlling module that prevents battery wear using a capacity-based algorithm</li>
+                            <li>Created firmware for the microcontroller, designed the PCB, and validated its effectiveness</li>
                             <li>Results published in an IEEE conference paper</li>
                         </ul>
                         <div class="flex flex-wrap gap-2">
@@ -562,13 +598,13 @@ difference.
                         </p>
                         <div class="flex flex-wrap gap-2 mb-4">
                             <span class="badge">Arduino (C++)</span>
-                            <span class="badge">OLED Display</span>
+                            <span class="badge">i2c</span>
                             <span class="badge">Game Development</span>
                         </div>
                         <span class="text-sm font-medium flex items-center text-primary">View Details <span class="arrow ml-1 inline-block transition-transform duration-300">↓</span></span>
                     </div>
                     <div class="project-details px-6 text-sm border-t border-white/20">
-                        <p class="mb-3 text-secondary">Built a compact pocket watch with a 0.96″ OLED display that shows time and hosts simple games (e.g., Snake).</p>
+                        <p class="mb-3 text-secondary">Built a compact pocket watch with a 0.96″ OLED display that shows time and hosts simple games (e.g., Flappy Bird).</p>
                         <ul class="list-disc list-inside mb-6 space-y-1 pl-2 text-secondary">
                             <li>Integrated tactile buttons for navigation and game control</li>
                             <li>Optimized for low-power operation and portability</li>
@@ -592,18 +628,18 @@ difference.
                             Wearable assistive tech delivering audio & haptic feedback for enhanced spatial awareness.
                         </p>
                         <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="badge">Python</span>
-                            <span class="badge">Raspberry Pi</span>
-                            <span class="badge">Sensors</span>
+                            <span class="badge">C++</span>
+                            <span class="badge">Unreal Engine</span>
+                            <span class="badge">Blender</span>
                         </div>
                         <span class="text-sm font-medium flex items-center text-primary">View Details <span class="arrow ml-1 inline-block transition-transform duration-300">↓</span></span>
                     </div>
                     <div class="project-details px-6 text-sm border-t border-white/20">
-                        <p class="mb-3 text-secondary">Developed a prototype wearable that scans the environment with ultrasonic sensors and communicates distance via audio cues and vibration.</p>
+                        <p class="mb-3 text-secondary">Developed a prototype wearable that scans the environment and communicates distance via audio cues and vibration.</p>
                         <ul class="list-disc list-inside mb-6 space-y-1 pl-2 text-secondary">
                             <li>Wrote real-time sensor-fusion code for accurate proximity detection</li>
                             <li>Designed ergonomic enclosures for the wearable device</li>
-                            <li>Tested user navigation improvements for the visually impaired</li>
+                            <li>Tested user navigation in unreal engine</li>
                         </ul>
                         <div class="flex flex-wrap gap-2">
                             <a href="https://github.com/tusharmagar/THEIA" class="gradient-link" target="_blank">View Code</a>
@@ -623,8 +659,10 @@ difference.
                         </p>
                         <div class="flex flex-wrap gap-2 mb-4">
                             <span class="badge">Python</span>
+                            <span class="badge">TypeScript</span>
                             <span class="badge">OpenAI Whisper</span>
                             <span class="badge">Stable Diffusion</span>
+                            <span class="badge">Librosa</span>
                         </div>
                         <span class="text-sm font-medium flex items-center text-primary">View Details <span class="arrow ml-1 inline-block transition-transform duration-300">↓</span></span>
                     </div>
@@ -683,12 +721,12 @@ difference.
                         </div>
                         <h3 class="text-xl font-medium mb-2 text-primary">Electronics & Hardware Projects</h3>
                         <p class="mb-4 text-sm text-secondary">
-                            A showcase of DIY hardware hacks blending microcontrollers and sensors into real-world automations.
+                            Tinkered around a lot with electronics and really enjoyed it
                         </p>
                         <div class="flex flex-wrap gap-2 mb-4">
                             <span class="badge">Arduino</span>
                             <span class="badge">Raspberry Pi</span>
-                            <span class="badge">C/C++</span>
+                            <span class="badge">Circuit Design</span>
                         </div>
                         <span class="text-sm font-medium flex items-center text-primary">View Details <span class="arrow ml-1 inline-block transition-transform duration-300">↓</span></span>
                     </div>
@@ -701,7 +739,7 @@ difference.
                             <li>Documented schematics, code, and build steps for each project</li>
                         </ul>
                         <div class="flex flex-wrap gap-2">
-                            <a href="#" class="gradient-link">Details upon request</a>
+                            <a href="https://www.hackster.io/tusharmagar" class="gradient-link">Here are some</a>
                         </div>
                     </div>
                 </div>
@@ -719,7 +757,6 @@ difference.
                         <div class="flex flex-wrap gap-2 mb-4">
                             <span class="badge">Python</span>
                             <span class="badge">Git</span>
-                            <span class="badge">GitHub API</span>
                         </div>
                         <span class="text-sm font-medium flex items-center text-primary">View Details <span class="arrow ml-1 inline-block transition-transform duration-300">↓</span></span>
                     </div>
@@ -738,7 +775,7 @@ difference.
             </div>
             
             <div class="flex justify-center mt-12">
-                <button id="view-more-btn" class="px-6 py-3 rounded-md card hover:bg-[rgba(255,255,255,0.1)] transition text-primary">
+                <button id="view-more-btn" class="hero-btn px-6 py-3 rounded-md transition text-primary" style="background: linear-gradient(90deg, rgba(var(--accent-color-rgb), 0.1), rgba(var(--accent-color-rgb), 0.2)); border: 1px solid rgba(var(--accent-color-rgb), 0.2);">
                     View More Projects
                 </button>
             </div>
@@ -854,7 +891,7 @@ difference.
                 <!-- Speaker -->
                 <div class="card p-6 relative hover-effect glow-effect">
                   <h4 class="text-xl font-medium mb-2 text-primary">Speaker: IBM TechXchange 2025</h4>
-                  <p class="mb-4 text-secondary">Feb 2025 &bull; Issued by IBM</p>
+                  <p class="mb-4 text-secondary">Feb 2025 &bull; IBM</p>
                   <p class="text-secondary">
                     Invited to talk at IBM TechXchange 2025, after winning the 2024 TechXchange hackathon
                   </p>
@@ -869,7 +906,7 @@ difference.
               </summary>
               <div class="grid grid-cols-1 md:grid-cols-2 gap-8 pt-4">
                 <div class="card p-6 relative hover-effect glow-effect">
-                  <h4 class="text-xl font-medium mb-2 text-primary">Cold Start Cohort • Founders, Inc.</h4>
+                  <h4 class="text-xl font-medium mb-2 text-primary">Cold Start @ Founder's Inc.</h4>
                   <p class="text-secondary">
                     Chosen for the inaugural Cold Start accelerator cohort to build and scale ventures with expert mentorship.
                   </p>
@@ -877,7 +914,7 @@ difference.
                 <div class="card p-6 relative hover-effect glow-effect">
                   <h4 class="text-xl font-medium mb-2 text-primary">Top 7% Finalist: WTFund</h4>
                   <p class="text-secondary">
-                    Ranked in the top 7% of global applicants to this startup accelerator.
+                    Ranked in the top 7% of global applicants.
                   </p>
                 </div>
                 <div class="card p-6 relative hover-effect glow-effect">
@@ -906,17 +943,17 @@ difference.
                   <h4 class="text-xl font-medium mb-2 text-primary">
                     SkyJump Las Vegas: World's Highest Commercial Decelerator Descent
                   </h4>
-                  <p class="mb-4 text-secondary">Apr 2024 &bull; The STRAT Hotel, Casino &amp; Tower</p>
+                  <p class="mb-4 text-secondary">2024 &bull; Las Vegas</p>
                   <p class="text-secondary">
-                    Leapt a controlled open-air descent from the 108th-floor launch pad—829 ft above the Las Vegas Strip—reaching speeds up to 40 mph. Holds the Guinness World Record for highest commercial decelerator descent.
+                    Jumped of a really tall building 😈
                   </p>
                 </div>
                 <!-- Bike Ride -->
                 <div class="card p-6 relative hover-effect glow-effect">
                   <h4 class="text-xl font-medium mb-2 text-primary">1000 km Bike Ride: Seattle → San Francisco</h4>
-                  <p class="mb-4 text-secondary">2018 &bull; Group expedition of five</p>
+                  <p class="mb-4 text-secondary">2018 &bull; USA</p>
                   <p class="text-secondary">
-                    Completed a 1,000 km journey along the Pacific Coast Highway as part of a five-member team.
+                    ngl I'm done with cycling after this 😭
                   </p>
                 </div>
                 <!-- Kedarkantha -->
@@ -1036,6 +1073,7 @@ difference.
                                         <span class="badge">PostgreSQL</span>
                                         <span class="badge">Firebase</span>
                                         <span class="badge">JSON Stores</span>
+                                        <span class="badge">Blob</span>
                                         <span class="badge">Vector Databases</span>
                             </div>
                         </div>
@@ -1075,65 +1113,103 @@ difference.
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                                         </svg>
                                         Analytics & BI
-                                    </h4>
-                                    <div class="flex flex-wrap gap-2">
-                                        <span class="badge">Power BI</span>
-                                        <span class="badge">SQL-based insights</span>
-                                        <span class="badge">Reporting automation</span>
-                                        <span class="badge">Data visualization</span>
-                            </div>
-                        </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Frameworks & Tools with tech icons -->
-                 <div>
-                            <h3 class="text-xl font-medium mb-8 text-primary flex items-center">
-                                <svg class="w-5 h-5 mr-3 opacity-80" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg>
-                                Libraries & Frameworks
-                            </h3>
-                            
-                            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-                                <div class="theme-card p-3 flex flex-col items-center">
-                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nextjs/nextjs-original.svg" alt="Next.js" class="w-12 h-12 mb-2 invert" />
-                                    <span class="text-primary text-xs font-medium">Next.js</span>
-                                </div>
-                                
-                                <div class="theme-card p-3 flex flex-col items-center">
-                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg" alt="Tailwind" class="w-12 h-12 mb-2" />
-                                    <span class="text-primary text-xs font-medium">TailwindCSS</span>
-                                </div>
-                                
-                                <div class="theme-card p-3 flex flex-col items-center">
-                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/flask/flask-original.svg" alt="Flask" class="w-12 h-12 mb-2" />
-                                    <span class="text-primary text-xs font-medium">Flask</span>
-                                </div>
-
-                                <div class="theme-card p-3 flex flex-col items-center">
-                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" alt="Git" class="w-12 h-12 mb-2" />
-                                    <span class="text-primary text-xs font-medium">Git</span>
-                                </div>
-                                
-                                <div class="theme-card p-3 flex flex-col items-center">
-                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg" alt="GitHub" class="w-12 h-12 mb-2 invert" />
-                                    <span class="text-primary text-xs font-medium">GitHub</span>
-                                </div>
-                                
-                                <div class="theme-card p-3 flex flex-col items-center">
-                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vscode/vscode-original.svg" alt="VS Code" class="w-12 h-12 mb-2" />
-                                    <span class="text-primary text-xs font-medium">VS Code</span>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Platforms & Tools -->
-                        <div>
-                            <h3 class="text-xl font-medium mb-8 text-primary flex items-center">
-                                <svg class="w-5 h-5 mr-3 opacity-80" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2H5z" />
-                                </svg>
-                                Platforms & Tools
-                            </h3>
+                                        </h4>
+                                        <div class="flex flex-wrap gap-2">
+                                            <span class="badge">Power BI</span>
+                                            <span class="badge">SQL-based insights</span>
+                                            <span class="badge">Reporting automation</span>
+                                            <span class="badge">Data visualization</span>
+                                        </div>
+                                        </div>
+                                        </div>
+                                        </div>
+                                        
+                                        <!-- Frameworks & Tools with tech icons -->
+                                        <div>
+                                            <h3 class="text-xl font-medium mb-8 text-primary flex items-center">
+                                                <svg class="w-5 h-5 mr-3 opacity-80" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path
+                                                        d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z">
+                                                    </path>
+                                                </svg>
+                                                Libraries & Frameworks
+                                            </h3>
+                                        
+                                            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+                                                <!-- Next.js -->
+                                                <div class="theme-card p-3 flex flex-col items-center">
+                                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nextjs/nextjs-original.svg"
+                                                        alt="Next.js" class="w-12 h-12 mb-2 invert" />
+                                                    <span class="text-primary text-xs font-medium">Next.js</span>
+                                                </div>
+                                        
+                                                <!-- React -->
+                                                <div class="theme-card p-3 flex flex-col items-center">
+                                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg" alt="React"
+                                                        class="w-12 h-12 mb-2" />
+                                                    <span class="text-primary text-xs font-medium">React</span>
+                                                </div>
+                                        
+                                                <!-- TailwindCSS -->
+                                                <div class="theme-card p-3 flex flex-col items-center">
+                                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg"
+                                                        alt="TailwindCSS" class="w-12 h-12 mb-2" />
+                                                    <span class="text-primary text-xs font-medium">TailwindCSS</span>
+                                                </div>
+                                        
+                                                <!-- Flask -->
+                                                <div class="theme-card p-3 flex flex-col items-center">
+                                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/flask/flask-original.svg" alt="Flask"
+                                                        class="w-12 h-12 mb-2" />
+                                                    <span class="text-primary text-xs font-medium">Flask</span>
+                                                </div>
+                                        
+                                                <!-- SQLAlchemy -->
+                                                <div class="theme-card p-3 flex flex-col items-center">
+                                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/sqlalchemy/sqlalchemy-original.svg"
+                                                        alt="SQLAlchemy" class="w-12 h-12 mb-2" />
+                                                    <span class="text-primary text-xs font-medium">SQLAlchemy</span>
+                                                </div>
+                                        
+                                                <!-- Pandas -->
+                                                <div class="theme-card p-3 flex flex-col items-center">
+                                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pandas/pandas-original.svg" alt="Pandas"
+                                                        class="w-12 h-12 mb-2" />
+                                                    <span class="text-primary text-xs font-medium">Pandas</span>
+                                                </div>
+                                        
+                                                <!-- LangChain -->
+                                                <div class="theme-card p-3 flex flex-col items-center">
+                                                    <img src="images/langchain.png" alt="LangChain" class="w-12 h-12 mb-2" />
+                                                    <span class="text-primary text-xs font-medium">LangChain</span>
+                                                </div>
+                                        
+                                                <!-- shadcn/ui -->
+                                                <div class="theme-card p-3 flex flex-col items-center">
+                                                    <img src="images/shadcn.png" alt="shadcn/ui" class="w-12 h-12 mb-2" />
+                                                    <span class="text-primary text-xs font-medium">shadcn/ui</span>
+                                                </div>
+                                        
+                                                <!-- Twilio -->
+                                                <div class="theme-card p-3 flex flex-col items-center">
+                                                    <img src="images/Twilio.png" alt="Twilio" class="w-12 h-12 mb-2" />
+                                                    <span class="text-primary text-xs font-medium">Twilio</span>
+                                                </div>
+                                        
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Platforms & Tools -->
+                                        <div>
+                                            <h3 class="text-xl font-medium mb-8 text-primary flex items-center">
+                                                <svg class="w-5 h-5 mr-3 opacity-80" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                    stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                        d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2H5z" />
+                                                </svg>
+                                                Platforms & Tools
+                                            </h3>
                             
                             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                                 <div class="theme-card p-5">
@@ -1175,6 +1251,15 @@ difference.
                             </h3>
                             
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                                <div class="theme-card p-5 flex">
+                                    <div class="mr-5 text-primary text-3xl">👨‍💼</div>
+                                    <div>
+                                        <h4 class="text-primary font-medium mb-2">Leadership</h4>
+                                        <p class="text-secondary text-sm">Hackathon team leadership, solo founder experience, and guiding technical decision-making.</p>
+                                    </div>
+                                </div>
+
                                 <div class="theme-card p-5 flex">
                                     <div class="mr-5 text-primary text-3xl">🚀</div>
                                     <div>
@@ -1204,14 +1289,6 @@ difference.
                                     <div>
                                         <h4 class="text-primary font-medium mb-2">Client Interaction</h4>
                                         <p class="text-secondary text-sm">Building feedback loops, client onboarding, and managing expectations throughout project lifecycles.</p>
-                                    </div>
-                                </div>
-                                
-                                <div class="theme-card p-5 flex">
-                                    <div class="mr-5 text-primary text-3xl">👨‍💼</div>
-                                    <div>
-                                        <h4 class="text-primary font-medium mb-2">Leadership</h4>
-                                        <p class="text-secondary text-sm">Hackathon team leadership, solo founder experience, and guiding technical decision-making.</p>
                                     </div>
                                 </div>
                                 
@@ -1378,19 +1455,29 @@ difference.
                 root.style.setProperty('--text-primary', '#222222');
                 root.style.setProperty('--text-secondary', 'rgba(0, 0, 0, 0.7)');
                 root.style.setProperty('--accent-color', '#222222');
+                root.style.setProperty('--accent-color-rgb', '34, 34, 34');
                 root.style.setProperty('--card-bg', 'rgba(255, 255, 255, 0.2)');
                 root.style.setProperty('--card-border', 'rgba(0, 0, 0, 0.1)');
                 root.style.setProperty('--card-border-hover', 'rgba(0, 0, 0, 0.2)');
                 root.style.setProperty('--nav-bg', 'rgba(255, 255, 255, 0.5)');
+                root.style.setProperty('--success-color', '#15803d');
+                root.style.setProperty('--success-color-rgb', '21, 128, 61');
+                root.style.setProperty('--info-color', '#0369a1');
+                root.style.setProperty('--info-color-rgb', '3, 105, 161');
             } else {
                 // For dark backgrounds, use light text
                 root.style.setProperty('--text-primary', '#ffffff');
                 root.style.setProperty('--text-secondary', 'rgba(255, 255, 255, 0.7)');
                 root.style.setProperty('--accent-color', '#ffffff');
+                root.style.setProperty('--accent-color-rgb', '255, 255, 255');
                 root.style.setProperty('--card-bg', 'rgba(0, 0, 0, 0.2)');
                 root.style.setProperty('--card-border', 'rgba(255, 255, 255, 0.1)');
                 root.style.setProperty('--card-border-hover', 'rgba(255, 255, 255, 0.2)');
                 root.style.setProperty('--nav-bg', 'rgba(0, 0, 0, 0.5)');
+                root.style.setProperty('--success-color', '#4ade80');
+                root.style.setProperty('--success-color-rgb', '74, 222, 128');
+                root.style.setProperty('--info-color', '#38bdf8');
+                root.style.setProperty('--info-color-rgb', '56, 189, 248');
             }
         }
 
@@ -1404,6 +1491,21 @@ difference.
             const menuToggle = document.getElementById('menu-toggle');
             const moreProjects = document.getElementById('more-projects');
             const viewMoreBtn = document.getElementById('view-more-btn');
+            
+            // Add hover effects to hero buttons
+            document.querySelectorAll('.hero-btn').forEach(btn => {
+                btn.addEventListener('mouseenter', function() {
+                    this.style.background = `linear-gradient(90deg, rgba(var(--accent-color-rgb), 0.2), rgba(var(--accent-color-rgb), 0.3))`;
+                    this.style.transform = 'translateY(-1px)';
+                    this.style.boxShadow = '0 3px 10px rgba(0, 0, 0, 0.1)';
+                });
+                
+                btn.addEventListener('mouseleave', function() {
+                    this.style.background = `linear-gradient(90deg, rgba(var(--accent-color-rgb), 0.1), rgba(var(--accent-color-rgb), 0.2))`;
+                    this.style.transform = 'translateY(0)';
+                    this.style.boxShadow = 'none';
+                });
+            });
             
             // bind a single handler to *all* project cards, initial + "more"
             document.querySelectorAll('.project-card-clickable').forEach(card => {
