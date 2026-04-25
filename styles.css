@@ -254,7 +254,7 @@ hr.rule { border: 0; border-top: 1px solid var(--rule); margin: 0; }
 
 .hero__name {
     font-family: var(--display);
-    font-size: clamp(1.75rem, 7.5vw, 4.5rem);
+    font-size: clamp(2.5rem, 9vw, 4.5rem);
     line-height: 1;
     letter-spacing: -0.01em;
     font-weight: 400;
