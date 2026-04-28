@@ -147,6 +147,15 @@ section + section { margin-top: 6rem; }
     margin-right: 0.8em;
 }
 
+.section-hint {
+    margin: -0.85rem 0 1.25rem;
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--ink-fade);
+}
+
 h1, h2, h3, h4 {
     font-family: var(--display);
     font-weight: 400;
@@ -473,6 +482,13 @@ hr.rule { border: 0; border-top: 1px solid var(--rule); margin: 0; }
 }
 
 .project__year { font-family: var(--mono); font-size: 0.72rem; color: var(--ink-fade); }
+.project__year::after {
+    content: "  +";
+    color: var(--ink-fade);
+}
+.project.is-open .project__year::after {
+    content: "  −";
+}
 
 .project__body { overflow: hidden; max-height: 0; transition: max-height 600ms var(--ease); }
 .project.is-open .project__body { max-height: 1400px; }
@@ -532,6 +548,10 @@ hr.rule { border: 0; border-top: 1px solid var(--rule); margin: 0; }
 #more-projects.is-open { display: block; }
 
 /* ----- 10. Achievements -------------------------------------- */
+.achievements {
+    counter-reset: achievement-index;
+}
+
 .achievements__group { margin-bottom: 2rem; }
 
 .achievements__group summary {
@@ -564,7 +584,21 @@ hr.rule { border: 0; border-top: 1px solid var(--rule); margin: 0; }
 .achievements__group[open] summary::after { content: "−"; }
 
 .achievements__list { list-style: none; margin: 0.5rem 0 1.5rem; padding: 0; }
-.achievement { padding: 0.95rem 0; border-top: 1px solid var(--rule); }
+.achievement {
+    padding: 0.95rem 0;
+    border-top: 1px solid var(--rule);
+    display: grid;
+    grid-template-columns: 2.25rem 1fr;
+    gap: 0.45rem 1rem;
+    counter-increment: achievement-index;
+}
+.achievement::before {
+    content: counter(achievement-index, decimal-leading-zero);
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--ink-fade);
+    padding-top: 0.1rem;
+}
 .achievement:first-child { border-top: 0; }
 
 .achievement__head {
@@ -572,13 +606,32 @@ hr.rule { border: 0; border-top: 1px solid var(--rule); margin: 0; }
     grid-template-columns: 1fr auto;
     gap: 0.5rem 1rem;
     align-items: baseline;
+    cursor: pointer;
+    padding-right: 1.2rem;
+    position: relative;
+    grid-column: 2;
+}
+
+.achievement__head::after {
+    content: "+";
+    position: absolute;
+    right: 0;
+    top: 0.05rem;
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: var(--ink-fade);
+}
+
+.achievement.is-open .achievement__head::after {
+    content: "−";
 }
 
 .achievement__title { font-size: 0.95rem; }
 .achievement__title strong { font-weight: 500; }
 
 .achievement__date { font-family: var(--mono); font-size: 0.7rem; color: var(--ink-fade); white-space: nowrap; }
-.achievement__body { margin: 0.35rem 0 0; color: var(--ink-soft); font-size: 0.88rem; max-width: 32rem; }
+.achievement__body { margin: 0.35rem 0 0; color: var(--ink-soft); font-size: 0.88rem; max-width: 32rem; display: none; grid-column: 2; }
+.achievement.is-open .achievement__body { display: block; }
 
 /* ----- 11. Footer -------------------------------------------- */
 .foot {
