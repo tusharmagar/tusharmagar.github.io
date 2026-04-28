@@ -6,6 +6,7 @@
     function init() {
         bindWorkDisclosures();
         bindProjectDisclosures();
+        bindAchievementDisclosures();
         bindMoreProjects();
         bindAmbient();
         bindScrollNav();
@@ -237,6 +238,33 @@
             const open = more.classList.toggle("is-open");
             btn.textContent = open ? "Show fewer projects" : "View More Projects";
             if (open) more.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+    }
+
+    function bindAchievementDisclosures() {
+        document.querySelectorAll(".achievement").forEach(item => {
+            const head = item.querySelector(".achievement__head");
+            const body = item.querySelector(".achievement__body");
+            if (!head || !body) return;
+
+            const setOpen = (open) => {
+                item.classList.toggle("is-open", open);
+                head.setAttribute("aria-expanded", String(open));
+            };
+
+            setOpen(false);
+            head.setAttribute("role", "button");
+            head.setAttribute("tabindex", "0");
+
+            const toggle = () => setOpen(!item.classList.contains("is-open"));
+
+            head.addEventListener("click", toggle);
+            head.addEventListener("keydown", (e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    toggle();
+                }
+            });
         });
     }
 
