@@ -231,6 +231,7 @@ hr.rule { border: 0; border-top: 1px solid var(--rule); margin: 0; }
     color: var(--ink);
     text-transform: uppercase;
     letter-spacing: 0.01em;
+    white-space: nowrap;
     border-radius: 999px;
     padding: 0.34rem 0.6rem;
     transition: background 200ms var(--ease), color 200ms var(--ease);
@@ -245,6 +246,8 @@ hr.rule { border: 0; border-top: 1px solid var(--rule); margin: 0; }
 
 .nav__links {
     display: flex;
+    margin-left: auto;
+    justify-content: flex-end;
     gap: 0.3rem;
     font-family: var(--mono);
     font-size: 0.7rem;
@@ -298,8 +301,22 @@ hr.rule { border: 0; border-top: 1px solid var(--rule); margin: 0; }
 }
 
 @media (max-width: 420px) {
+    .nav__inner {
+        padding: 0.3rem 0.4rem;
+    }
+
     .nav__brand {
-        display: none;
+        font-size: 0.62rem;
+        padding: 0.18rem 0.3rem;
+    }
+
+    .nav__links {
+        font-size: 0.58rem;
+        gap: 0.12rem;
+    }
+
+    .nav__links a {
+        padding: 0.2rem 0.34rem;
     }
 }
 
@@ -534,10 +551,10 @@ hr.rule { border: 0; border-top: 1px solid var(--rule); margin: 0; }
     white-space: nowrap;
 }
 
-.work__blurb { color: var(--ink-soft); margin: 0.45rem 0 0; font-size: 0.92rem; max-width: 32rem; }
-
 .work__details { margin-top: 0.85rem; color: var(--ink-soft); font-size: 0.9rem; display: none; }
 .work__item.is-open .work__details { display: block; }
+.work__summary { margin: 0 0 0.55rem; color: var(--ink-soft); font-size: 0.92rem; max-width: 32rem; }
+.work__summary:last-child { margin-bottom: 0; }
 .work__details ul { margin: 0.4rem 0 0.6rem; padding-left: 1.1rem; }
 .work__details li { margin-bottom: 0.2rem; }
 
