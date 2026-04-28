@@ -200,6 +200,16 @@
     function bindWorkDisclosures() {
         document.querySelectorAll(".work__item").forEach(item => {
             const btn = item.querySelector(".disclose");
+            const details = item.querySelector(".work__details");
+            const hasDetails = !!details && (
+                details.children.length > 0 || details.textContent.trim().length > 0
+            );
+
+            if (!hasDetails) {
+                if (btn) btn.remove();
+                return;
+            }
+
             if (!btn) return;
             btn.addEventListener("click", () => {
                 const open = item.classList.toggle("is-open");

@@ -367,8 +367,9 @@ hr.rule { border: 0; border-top: 1px solid var(--rule); margin: 0; }
 
 .about__meta {
     display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem 2rem;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.65rem;
     margin: 2rem 0 0;
     padding: 1.25rem 0 0;
     border-top: 1px solid var(--rule);
@@ -379,35 +380,111 @@ hr.rule { border: 0; border-top: 1px solid var(--rule); margin: 0; }
 
 .about__meta a:hover { color: var(--accent); }
 
+.about__meta-line {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem 1.25rem;
+}
+
+.about__meta-line--social {
+    gap: 0.35rem 0.65rem;
+}
+
 .about__meta-row { display: inline-flex; align-items: center; gap: 0.5rem; }
 .about__meta-row svg { width: 13px; height: 13px; opacity: 0.55; flex-shrink: 0; }
+.about__meta-sep { color: var(--ink-fade); }
 
 /* ----- 8. Work / experience ---------------------------------- */
-.work__list { list-style: none; margin: 0; padding: 0; }
+.work__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+.work__list::before {
+    content: "";
+    position: absolute;
+    top: 0.55rem;
+    bottom: 0.55rem;
+    left: 0.45rem;
+    width: 1px;
+    background: var(--rule-strong);
+}
 
 .work__item {
-    padding: 1.4rem 0;
-    border-top: 1px solid var(--rule);
+    position: relative;
+    padding: 0 0 1.65rem 2rem;
 }
-.work__item:last-child { border-bottom: 1px solid var(--rule); }
+
+.work__item::before {
+    content: "";
+    position: absolute;
+    left: 0.08rem;
+    top: 0.25rem;
+    width: 0.72rem;
+    height: 0.72rem;
+    border-radius: 50%;
+    border: 1px solid var(--rule-strong);
+    background: var(--bg);
+}
+
+.work__item:last-child { padding-bottom: 0; }
 
 .work__row {
     display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 0.4rem 1rem;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    gap: 0.35rem 0.95rem;
     align-items: baseline;
 }
 
-.work__role { font-size: 0.95rem; }
+.work__role { font-size: 0.95rem; margin: 0; }
 .work__role .at { color: var(--ink-fade); margin: 0 0.25em; }
 .work__role .title { font-family: var(--display); font-size: 1.05rem; text-transform: uppercase; color: var(--ink); letter-spacing: 0.01em; }
 .work__role .co { font-weight: 500; }
+.work__role--company .co {
+    font-family: var(--display);
+    font-size: 1.05rem;
+    text-transform: uppercase;
+    letter-spacing: 0.01em;
+    color: var(--ink);
+    font-weight: 400;
+}
 
 .work__date { font-family: var(--mono); font-size: 0.72rem; color: var(--ink-fade); white-space: nowrap; }
 
-.work__blurb { grid-column: 1 / -1; color: var(--ink-soft); margin: 0.5rem 0 0; font-size: 0.92rem; max-width: 32rem; }
+.work__roles {
+    list-style: none;
+    margin: 0.7rem 0 0;
+    padding: 0;
+}
 
-.work__details { grid-column: 1 / -1; margin-top: 0.85rem; color: var(--ink-soft); font-size: 0.9rem; display: none; }
+.work__roles li {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.6rem 1rem;
+    padding: 0.36rem 0 0.36rem 0.95rem;
+    border-left: 1px solid var(--rule);
+}
+
+.work__roles-title {
+    color: var(--ink-soft);
+    font-size: 0.86rem;
+}
+
+.work__roles-date {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--ink-fade);
+    white-space: nowrap;
+}
+
+.work__blurb { color: var(--ink-soft); margin: 0.45rem 0 0; font-size: 0.92rem; max-width: 32rem; }
+
+.work__details { margin-top: 0.85rem; color: var(--ink-soft); font-size: 0.9rem; display: none; }
 .work__item.is-open .work__details { display: block; }
 .work__details ul { margin: 0.4rem 0 0.6rem; padding-left: 1.1rem; }
 .work__details li { margin-bottom: 0.2rem; }
@@ -431,11 +508,36 @@ hr.rule { border: 0; border-top: 1px solid var(--rule); margin: 0; }
     text-transform: uppercase;
     color: var(--ink-fade);
     transition: color 200ms var(--ease);
-    grid-column: 2;
 }
 .disclose:hover { color: var(--accent); }
 .disclose .caret { display: inline-block; margin-left: 0.3em; transition: transform 250ms var(--ease); }
 .work__item.is-open .disclose .caret { transform: rotate(180deg); }
+
+@media (max-width: 640px) {
+    .work__row {
+        grid-template-columns: 1fr auto;
+    }
+
+    .work__date {
+        grid-column: 1;
+        grid-row: 2;
+    }
+
+    .disclose {
+        grid-column: 2;
+        grid-row: 1 / span 2;
+        align-self: center;
+    }
+
+    .work__roles li {
+        display: block;
+    }
+
+    .work__roles-date {
+        display: block;
+        margin-top: 0.12rem;
+    }
+}
 
 /* ----- 9. Projects ------------------------------------------- */
 .projects__list { list-style: none; margin: 0; padding: 0; }
