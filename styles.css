@@ -14,17 +14,17 @@
 
 /* ----- 1. Tokens --------------------------------------------- */
 :root {
-    --bg:        #f3ecdd;
-    --bg-soft:   #eee5d1;
-    --ink:       #1a1814;
-    --ink-soft:  #5b5851;
-    --ink-fade:  #97928a;
-    --accent:    #6b5942;
-    --accent-2:  #443827;
-    --rule:      rgba(26, 24, 20, 0.10);
-    --rule-strong: rgba(26, 24, 20, 0.22);
-    --pool-1:    rgba(232, 198, 142, 0.22);
-    --pool-2:    rgba(218, 200, 168, 0.18);
+    --bg:        #f5eedf;
+    --bg-soft:   #efe5d2;
+    --ink:       #1c1914;
+    --ink-soft:  #5f574e;
+    --ink-fade:  #9c9286;
+    --accent:    #745d44;
+    --accent-2:  #4f3f2d;
+    --rule:      rgba(28, 25, 20, 0.11);
+    --rule-strong: rgba(28, 25, 20, 0.23);
+    --pool-1:    rgba(236, 205, 149, 0.28);
+    --pool-2:    rgba(219, 193, 152, 0.19);
 
     --display: "Departure Mono", "JetBrains Mono", ui-monospace, monospace;
     --sans:    "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
@@ -648,6 +648,30 @@ hr.rule { border: 0; border-top: 1px solid var(--rule); margin: 0; }
 
 .ambient[aria-pressed="true"] .icon-off { display: none; }
 .ambient[aria-pressed="false"] .icon-on { display: none; }
+
+.ambient-hint {
+    position: fixed;
+    right: 4.25rem;
+    bottom: 1.3rem;
+    z-index: 101;
+    font-family: var(--mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.45rem 0.7rem;
+    background: color-mix(in srgb, var(--bg) 86%, transparent);
+    color: var(--ink-soft);
+    border: 1px solid var(--rule-strong);
+    border-radius: 999px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: color 200ms var(--ease), border-color 200ms var(--ease);
+}
+
+.ambient-hint:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+}
 
 /* ----- 14. Reduced motion ------------------------------------ */
 @media (prefers-reduced-motion: reduce) {
