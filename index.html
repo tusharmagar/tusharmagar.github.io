@@ -66,19 +66,23 @@
             </p>
 
             <div class="about__meta">
-                <span class="about__meta-row">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    <a href="mailto:tushmag@gmail.com">tushmag@gmail.com</a>
-                </span>
-                <span class="about__meta-row">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" stroke-linecap="round" stroke-linejoin="round"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    Bangalore, Karnataka, India
-                </span>
-                <span class="about__meta-row">
-                    <a href="https://github.com/tusharmagar" target="_blank" rel="noopener">github</a> ·
-                    <a href="https://www.linkedin.com/in/tusharmagar/" target="_blank" rel="noopener">linkedin</a> ·
+                <div class="about__meta-line about__meta-line--contact">
+                    <span class="about__meta-row">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        <a href="mailto:tushmag@gmail.com">tushmag@gmail.com</a>
+                    </span>
+                    <span class="about__meta-row">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" stroke-linecap="round" stroke-linejoin="round"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        Bangalore, Karnataka, India
+                    </span>
+                </div>
+                <div class="about__meta-line about__meta-line--social">
+                    <a href="https://github.com/tusharmagar" target="_blank" rel="noopener">github</a>
+                    <span class="about__meta-sep" aria-hidden="true">·</span>
+                    <a href="https://www.linkedin.com/in/tusharmagar/" target="_blank" rel="noopener">linkedin</a>
+                    <span class="about__meta-sep" aria-hidden="true">·</span>
                     <a href="https://x.com/TusharMagar_" target="_blank" rel="noopener">x</a>
-                </span>
+                </div>
             </div>
 
             <h3 style="margin-top:3rem; font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-fade); font-weight: 400;">Professional experience</h3>
@@ -86,22 +90,30 @@
             <ul class="work__list" style="margin-top: 1rem;">
                 <li class="work__item">
                     <div class="work__row">
-                        <p class="work__role"><span class="title">AI Solutions Engineer &amp; DevRel</span> <span class="at">at</span> <span class="co">Rowboat (YC S24)</span></p>
-                        <span class="work__date">Aug 2025 — Present</span>
+                        <p class="work__role"><span class="title">AI Resident</span> <span class="at">at</span> <span class="co">Lossfunk</span></p>
+                        <span class="work__date">Apr 2026 — Jun 2026</span>
                         <button class="disclose" type="button" aria-expanded="false">More <span class="caret">↓</span></button>
                     </div>
-                    <p class="work__blurb">Building AI-powered solutions and developer relations at a Y Combinator S24 startup.</p>
-                    <div class="work__details">
-                        <ul>
-                            <li>AI Solutions Engineer (Aug 2025 — Present)</li>
-                            <li>AI Solutions Intern (Jun 2025 — Jul 2025)</li>
-                        </ul>
-                        <div class="tags">
-                            <span>AI Solutions</span>
-                            <span>Developer Relations</span>
-                            <span>Y Combinator</span>
-                        </div>
+                    <p class="work__blurb">Selected for Lossfunk's AI residency program.</p>
+                    <div class="work__details"></div>
+                </li>
+
+                <li class="work__item">
+                    <div class="work__row">
+                        <p class="work__role work__role--company"><span class="co">Rowboat (YC S24)</span></p>
+                        <span class="work__date">Jun 2025 — Present</span>
                     </div>
+                    <ul class="work__roles">
+                        <li>
+                            <span class="work__roles-title">AI Solutions Engineer &amp; DevRel</span>
+                            <span class="work__roles-date">Aug 2025 — Present</span>
+                        </li>
+                        <li>
+                            <span class="work__roles-title">AI Solutions Intern</span>
+                            <span class="work__roles-date">Jun 2025 — Jul 2025</span>
+                        </li>
+                    </ul>
+                    <p class="work__blurb">Building AI-powered solutions and developer relations at a Y Combinator S24 startup.</p>
                 </li>
 
                 <li class="work__item">
@@ -114,18 +126,13 @@
                     <div class="work__details">
                         <ul>
                             <li>Waitlisted 40+ restaurants across India</li>
-                            <li>Ran a beta test with 4 of the best restaurants in Bangalore</li>
-                            <li>In touch with almost all major restaurant tech providers in India</li>
-                            <li>Received on-stage shoutouts at two of Bangalore's biggest restaurant summits: NRAI Food Delivery Summit &amp; FICCI South's Food Conference</li>
+                            <li>Ran a beta test with 4 leading restaurants in Bangalore</li>
+                            <li>Integrated with major restaurant-tech providers in India</li>
+                            <li>Received on-stage shoutouts at NRAI Food Delivery Summit and FICCI South Food Conference</li>
                             <li>Backed by Microsoft for Startups and AWS for Startups</li>
-                            <li>1st place winner at IBM's TechXchange 2024 Hackathon for Generative AI Applications</li>
+                            <li>1st place winner at IBM TechXchange 2024 Hackathon for Generative AI Applications</li>
                             <li>Top 7% of applicants to WTFund</li>
                         </ul>
-                        <div class="tags">
-                            <span>Application Programming Interfaces (API)</span>
-                            <span>Python</span>
-                            <span>+8 skills</span>
-                        </div>
                     </div>
                 </li>
 
@@ -138,15 +145,10 @@
                     <p class="work__blurb">Chosen for the first Cold Start cohort from hundreds of applications worldwide.</p>
                     <div class="work__details">
                         <ul>
-                            <li>Worked on my projects and gained meaningful traction</li>
-                            <li>Connected with some really cool people from across the globe</li>
-                            <li>Learned a lot from experienced and inspiring mentors</li>
+                            <li>Built and iterated on venture ideas with early traction</li>
+                            <li>Collaborated with founders from across the world</li>
+                            <li>Learned from experienced startup mentors and operators</li>
                         </ul>
-                        <div class="tags">
-                            <span>Entrepreneurship</span>
-                            <span>Business Development</span>
-                            <span>+1 skill</span>
-                        </div>
                     </div>
                 </li>
             </ul>
