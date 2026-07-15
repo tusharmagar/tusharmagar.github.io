@@ -2,8 +2,7 @@
 **/.DS_Store
 .claude/
 
-# personal photo originals + local editing tool — never commit
-# (folder renamed from DN/ to DN-originals/ so the ignore rule can't
-# case-insensitively swallow the deployable dn/ site folder)
+# personal / private — never commit
 /DN-originals/
+dn/
 dn-birthday/
