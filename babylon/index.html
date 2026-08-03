@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Babylon — AI-driven visuals for live music</title>
+    <meta name="description" content="Download the Babylon macOS alpha and a sample show to test AI-driven, audio-reactive visuals.">
+    <meta name="author" content="Tushar Magar">
+    <link rel="canonical" href="https://tusharmagar.github.io/babylon/">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://tusharmagar.github.io/babylon/">
+    <meta property="og:title" content="Babylon — Make music visible">
+    <meta property="og:description" content="An AI-driven VJ system for creating audio-reactive visuals for live music.">
+    <meta property="og:site_name" content="Babylon">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Babylon — Make music visible">
+    <meta name="twitter:description" content="Download the macOS alpha and a sample show to test Babylon.">
+
+    <link rel="icon" href="../favicon.ico" sizes="any">
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+    <meta name="theme-color" content="#07080a">
+
+    <link rel="stylesheet" href="styles.css">
+    <script src="download-config.js" defer></script>
+    <script src="app.js" defer></script>
+</head>
+<body>
+    <header class="nav">
+        <a class="wordmark" href="#top" aria-label="Babylon home">
+            <span class="wordmark__mark" aria-hidden="true"></span>
+            BABYLON
+        </a>
+        <div class="nav__meta">
+            <span class="status-dot"><span aria-hidden="true"></span> Alpha</span>
+            <a class="nav__back" href="../">Tushar's portfolio <span aria-hidden="true">↗</span></a>
+        </div>
+    </header>
+
+    <main id="top">
+        <section class="hero" aria-labelledby="hero-title">
+            <div class="hero__copy">
+                <p class="eyebrow"><span>AI-driven VJ system</span><span>macOS alpha</span></p>
+                <h1 id="hero-title">Make music<br><em>visible.</em></h1>
+                <p class="hero__lede">Babylon listens to a track, finds its rhythm and turns it into a live visual performance—ready to shape, remix and play.</p>
+                <div class="hero__actions">
+                    <a class="button button--primary is-disabled" data-download="mac" aria-disabled="true">
+                        <span>Download for macOS</span>
+                        <span class="button__arrow" aria-hidden="true">↓</span>
+                    </a>
+                    <a class="button button--ghost is-disabled" data-download="show" aria-disabled="true">
+                        <span>Get the demo show</span>
+                        <span class="button__arrow" aria-hidden="true">↓</span>
+                    </a>
+                </div>
+                <p class="availability" id="release-status" aria-live="polite">The first public alpha is being prepared.</p>
+            </div>
+
+            <div class="stage" aria-label="Abstract preview of an audio-reactive Babylon performance">
+                <div class="stage__noise" aria-hidden="true"></div>
+                <div class="stage__orb stage__orb--one" aria-hidden="true"></div>
+                <div class="stage__orb stage__orb--two" aria-hidden="true"></div>
+                <div class="laser-field" aria-hidden="true">
+                    <i style="--angle:-72deg; --length:76%; --delay:-1.1s"></i>
+                    <i style="--angle:-57deg; --length:90%; --delay:-0.3s"></i>
+                    <i style="--angle:-42deg; --length:78%; --delay:-1.8s"></i>
+                    <i style="--angle:-24deg; --length:98%; --delay:-0.8s"></i>
+                    <i style="--angle:-8deg; --length:88%; --delay:-2.2s"></i>
+                    <i style="--angle:9deg; --length:94%; --delay:-1.4s"></i>
+                    <i style="--angle:27deg; --length:82%; --delay:-0.5s"></i>
+                    <i style="--angle:45deg; --length:98%; --delay:-2.5s"></i>
+                    <i style="--angle:61deg; --length:84%; --delay:-1.7s"></i>
+                    <i style="--angle:75deg; --length:72%; --delay:-0.1s"></i>
+                </div>
+                <div class="stage__horizon" aria-hidden="true"></div>
+                <div class="stage__hud stage__hud--top"><span>LIVE INPUT</span><span>AUDIO // REACTIVE</span></div>
+                <div class="stage__hud stage__hud--bottom"><span>SCENE 01</span><span class="levels" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span></div>
+            </div>
+        </section>
+
+        <section class="release section" id="download" aria-labelledby="release-title">
+            <div class="section__intro">
+                <p class="kicker">01 / Test the alpha</p>
+                <h2 id="release-title">Everything you need<br>for a first run.</h2>
+                <p>Grab the app and the sample show. The two files are separate so new builds can ship without making you download the demo again.</p>
+            </div>
+
+            <div class="release__grid">
+                <article class="download-card" data-release-card="mac">
+                    <div class="download-card__top">
+                        <span class="file-icon" aria-hidden="true">APP</span>
+                        <span class="file-status" data-status="mac"><i aria-hidden="true"></i> Coming soon</span>
+                    </div>
+                    <div>
+                        <p class="download-card__label">01 / Application</p>
+                        <h3>Babylon for macOS</h3>
+                        <p>Install the Babylon desktop app on your Mac.</p>
+                    </div>
+                    <div class="download-card__footer">
+                        <span data-meta="mac">DMG · Alpha build</span>
+                        <a class="card-link is-disabled" data-download="mac" aria-disabled="true">Download <span aria-hidden="true">↓</span></a>
+                    </div>
+                </article>
+
+                <article class="download-card" data-release-card="show">
+                    <div class="download-card__top">
+                        <span class="file-icon file-icon--show" aria-hidden="true">SHOW</span>
+                        <span class="file-status" data-status="show"><i aria-hidden="true"></i> Coming soon</span>
+                    </div>
+                    <div>
+                        <p class="download-card__label">02 / Demo file</p>
+                        <h3>Sample Babylon show</h3>
+                        <p>Start with a ready-made show and see Babylon in motion.</p>
+                    </div>
+                    <div class="download-card__footer">
+                        <span data-meta="show">BABYLONSHOW · Demo</span>
+                        <a class="card-link is-disabled" data-download="show" aria-disabled="true">Download <span aria-hidden="true">↓</span></a>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section class="steps section" aria-labelledby="steps-title">
+            <div class="section__intro">
+                <p class="kicker">02 / Quick start</p>
+                <h2 id="steps-title">From download<br>to showtime.</h2>
+            </div>
+            <ol class="steps__list">
+                <li>
+                    <span class="steps__num">01</span>
+                    <div><h3>Install Babylon</h3><p>Open the DMG, then move Babylon into your Applications folder.</p></div>
+                </li>
+                <li>
+                    <span class="steps__num">02</span>
+                    <div><h3>Open the sample</h3><p>Download the demo <code>.babylonshow</code> file and open it in Babylon.</p></div>
+                </li>
+                <li>
+                    <span class="steps__num">03</span>
+                    <div><h3>Play and explore</h3><p>Press play, try the controls and see how the visuals respond to the music.</p></div>
+                </li>
+            </ol>
+        </section>
+
+        <section class="feedback section" aria-labelledby="feedback-title">
+            <p class="kicker">03 / Built in public</p>
+            <div class="feedback__row">
+                <h2 id="feedback-title">Found something?<br><em>I want to hear it.</em></h2>
+                <div>
+                    <p>Babylon is an early build. Bug reports, rough edges and unexpected ideas are all useful.</p>
+                    <a class="text-link" href="mailto:tushmag@gmail.com?subject=Babylon%20alpha%20feedback">Send alpha feedback <span aria-hidden="true">↗</span></a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <a class="wordmark" href="#top"><span class="wordmark__mark" aria-hidden="true"></span>BABYLON</a>
+        <p>Built by <a href="../">Tushar Magar</a></p>
+        <p>Alpha / 2026</p>
+    </footer>
+</body>
+</html>
