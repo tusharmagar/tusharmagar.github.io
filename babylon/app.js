@@ -2,6 +2,21 @@
     const downloads = window.BABYLON_DOWNLOADS || {};
     let available = 0;
 
+    const copyButton = document.querySelector("[data-copy-command]");
+    const command = document.getElementById("mcp-command");
+
+    if (copyButton && command) {
+        copyButton.addEventListener("click", async () => {
+            try {
+                await navigator.clipboard.writeText(command.textContent.trim());
+                copyButton.textContent = "Copied";
+                setTimeout(() => { copyButton.textContent = "Copy"; }, 1600);
+            } catch {
+                window.prompt("Copy this command:", command.textContent.trim());
+            }
+        });
+    }
+
     document.querySelectorAll("[data-download]").forEach((link) => {
         const key = link.dataset.download;
         const release = downloads[key];

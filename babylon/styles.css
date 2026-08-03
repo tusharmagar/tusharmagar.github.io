@@ -174,7 +174,8 @@ h1 em {
 .availability.is-ready { color: var(--acid); }
 
 .downloads,
-.quick-start {
+.quick-start,
+.mcp {
     padding-block: clamp(5rem, 10vw, 8rem);
     border-top: 1px solid var(--line);
 }
@@ -263,6 +264,54 @@ h2 {
 }
 .quick-start li p { margin: 0; font-size: 0.95rem; }
 
+.mcp__intro {
+    max-width: 32rem;
+    margin: 0 0 1.5rem 32.5%;
+    color: var(--muted);
+    font-size: 0.9rem;
+}
+
+.command {
+    min-height: 82px;
+    padding: 1rem 1rem 1rem 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    border: 1px solid var(--line);
+    background: var(--surface);
+}
+
+.command code {
+    overflow-wrap: anywhere;
+    color: var(--ink);
+    font-family: var(--mono);
+    font-size: clamp(0.68rem, 1.5vw, 0.82rem);
+}
+
+.command button {
+    flex: 0 0 auto;
+    min-width: 72px;
+    min-height: 40px;
+    padding: 0.65rem 0.9rem;
+    border: 1px solid var(--line-strong);
+    background: transparent;
+    color: var(--acid);
+    font-family: var(--mono);
+    font-size: 0.64rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: border-color 160ms ease, background 160ms ease;
+}
+
+.command button:hover,
+.command button:focus-visible {
+    border-color: var(--acid);
+    background: rgba(185, 255, 68, 0.05);
+    outline: none;
+}
+
 .feedback {
     padding-block: 2.5rem;
     border-top: 1px solid var(--line);
@@ -304,6 +353,9 @@ h2 {
     .file-row__link { grid-column: 2; }
     .quick-start ol { grid-template-columns: 1fr; }
     .quick-start li { min-height: 120px; border-left: 1px solid var(--line); }
+    .mcp__intro { margin-left: 0; }
+    .command { align-items: flex-start; flex-direction: column; }
+    .command button { align-self: stretch; }
     .footer { grid-template-columns: 1fr auto; }
     .footer p:first-of-type { grid-column: 1 / -1; grid-row: 2; }
 }
