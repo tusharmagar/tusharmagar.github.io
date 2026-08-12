@@ -2,10 +2,10 @@
     const downloads = window.BABYLON_DOWNLOADS || {};
     let available = 0;
 
-    const copyButton = document.querySelector("[data-copy-command]");
-    const command = document.getElementById("mcp-command");
+    document.querySelectorAll("[data-copy-target]").forEach((copyButton) => {
+        const command = document.getElementById(copyButton.dataset.copyTarget);
+        if (!command) return;
 
-    if (copyButton && command) {
         copyButton.addEventListener("click", async () => {
             try {
                 await navigator.clipboard.writeText(command.textContent.trim());
@@ -15,7 +15,7 @@
                 window.prompt("Copy this command:", command.textContent.trim());
             }
         });
-    }
+    });
 
     document.querySelectorAll("[data-download]").forEach((link) => {
         const key = link.dataset.download;

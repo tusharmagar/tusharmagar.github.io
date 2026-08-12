@@ -97,13 +97,25 @@
 
         <section class="mcp" aria-labelledby="mcp-title">
             <div class="section-heading">
-                <p class="eyebrow">Codex MCP</p>
+                <p class="eyebrow">MCP setup</p>
                 <h2 id="mcp-title">Build with Babylon.</h2>
             </div>
-            <p class="mcp__intro">With Babylon running, add its local MCP server to Codex.</p>
-            <div class="command">
-                <code id="mcp-command">codex mcp add babylon --url http://127.0.0.1:4519/mcp</code>
-                <button type="button" data-copy-command aria-label="Copy Codex MCP command">Copy</button>
+            <p class="mcp__intro">With Babylon running, connect its local MCP server to your coding agent.</p>
+            <div class="command-list">
+                <div class="command-group">
+                    <p class="command-label">Codex</p>
+                    <div class="command">
+                        <code id="codex-mcp-command">codex mcp add babylon --url http://127.0.0.1:4519/mcp</code>
+                        <button type="button" data-copy-target="codex-mcp-command" aria-label="Copy Codex MCP command">Copy</button>
+                    </div>
+                </div>
+                <div class="command-group">
+                    <p class="command-label">Claude Code</p>
+                    <div class="command">
+                        <code id="claude-mcp-command">claude mcp add --transport http babylon http://127.0.0.1:4519/mcp</code>
+                        <button type="button" data-copy-target="claude-mcp-command" aria-label="Copy Claude MCP command">Copy</button>
+                    </div>
+                </div>
             </div>
         </section>
 
