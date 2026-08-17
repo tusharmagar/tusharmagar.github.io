@@ -100,19 +100,20 @@
                 <p class="eyebrow">MCP setup</p>
                 <h2 id="mcp-title">Build with Babylon.</h2>
             </div>
-            <p class="mcp__intro">With Babylon running, connect its local MCP server to your coding agent.</p>
+            <p class="mcp__intro">Open Babylon once, then run the command for your agent. Each command reads Babylon's private local token.</p>
             <div class="command-list">
                 <div class="command-group">
                     <p class="command-label">Codex</p>
                     <div class="command">
-                        <code id="codex-mcp-command">codex mcp add babylon --url http://127.0.0.1:4519/mcp</code>
+                        <code id="codex-mcp-command">export BABYLON_MCP_TOKEN="$(cat "$HOME/Library/Application Support/Babylon Laser Studio/mcp-token")"
+codex mcp add babylon --url http://127.0.0.1:4519/mcp --bearer-token-env-var BABYLON_MCP_TOKEN</code>
                         <button type="button" data-copy-target="codex-mcp-command" aria-label="Copy Codex MCP command">Copy</button>
                     </div>
                 </div>
                 <div class="command-group">
                     <p class="command-label">Claude Code</p>
                     <div class="command">
-                        <code id="claude-mcp-command">claude mcp add --transport http babylon http://127.0.0.1:4519/mcp</code>
+                        <code id="claude-mcp-command">claude mcp add --transport http babylon http://127.0.0.1:4519/mcp --header "Authorization: Bearer $(cat "$HOME/Library/Application Support/Babylon Laser Studio/mcp-token")"</code>
                         <button type="button" data-copy-target="claude-mcp-command" aria-label="Copy Claude MCP command">Copy</button>
                     </div>
                 </div>

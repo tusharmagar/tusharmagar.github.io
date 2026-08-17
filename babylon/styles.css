@@ -297,6 +297,7 @@ h2 {
 }
 
 .command code {
+    white-space: pre-wrap;
     overflow-wrap: anywhere;
     color: var(--ink);
     font-family: var(--mono);
