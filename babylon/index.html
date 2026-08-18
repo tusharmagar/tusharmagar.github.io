@@ -98,25 +98,103 @@
         <section class="mcp" aria-labelledby="mcp-title">
             <div class="section-heading">
                 <p class="eyebrow">MCP setup</p>
-                <h2 id="mcp-title">Build with Babylon.</h2>
+                <h2 id="mcp-title">Connect your agent.</h2>
             </div>
-            <p class="mcp__intro">Open Babylon once, then run the command for your agent. Each command reads Babylon's private local token.</p>
-            <div class="command-list">
-                <div class="command-group">
-                    <p class="command-label">Codex</p>
-                    <div class="command">
-                        <code id="codex-mcp-command">export BABYLON_MCP_TOKEN="$(cat "$HOME/Library/Application Support/Babylon Laser Studio/mcp-token")"
+            <p class="mcp__intro">MCP lets Codex or Claude Code work directly inside Babylon on the same Mac. Set it up once, then control Babylon by asking your agent in plain language.</p>
+
+            <div class="mcp-prerequisites" aria-labelledby="before-you-start-title">
+                <p class="command-label" id="before-you-start-title">Before you start</p>
+                <ol class="mcp-prerequisites__steps">
+                    <li><span>01</span><p>Install Babylon and move it to Applications.</p></li>
+                    <li><span>02</span><p>Open Babylon once to create its private MCP token.</p></li>
+                    <li><span>03</span><p>Keep Babylon running and open Terminal on your Mac.</p></li>
+                </ol>
+                <p class="mcp-note">Babylon and your agent must be running on the same Mac. The token stays private and is read directly from your computer.</p>
+            </div>
+
+            <div class="agent-guides">
+                <article class="agent-guide" aria-labelledby="codex-guide-title">
+                    <header class="agent-guide__header">
+                        <div>
+                            <p class="command-label">OpenAI</p>
+                            <h3 id="codex-guide-title">Codex</h3>
+                        </div>
+                        <span class="agent-guide__badge">Terminal</span>
+                    </header>
+
+                    <ol class="agent-guide__steps">
+                        <li>
+                            <div class="step-heading"><span>01</span><h4>Install Codex CLI</h4></div>
+                            <p>If <code>codex --version</code> does not work, paste this into Terminal.</p>
+                            <div class="command command--compact">
+                                <code id="codex-install-command">curl -fsSL https://chatgpt.com/codex/install.sh | sh</code>
+                                <button type="button" data-copy-target="codex-install-command" aria-label="Copy Codex install command">Copy</button>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="step-heading"><span>02</span><h4>Give Codex access to Babylon</h4></div>
+                            <p>With Babylon open, paste both lines into the same Terminal window.</p>
+                            <div class="command">
+                                <code id="codex-mcp-command">export BABYLON_MCP_TOKEN="$(cat "$HOME/Library/Application Support/Babylon Laser Studio/mcp-token")"
 codex mcp add babylon --url http://127.0.0.1:4519/mcp --bearer-token-env-var BABYLON_MCP_TOKEN</code>
-                        <button type="button" data-copy-target="codex-mcp-command" aria-label="Copy Codex MCP command">Copy</button>
-                    </div>
+                                <button type="button" data-copy-target="codex-mcp-command" aria-label="Copy Codex MCP command">Copy</button>
+                            </div>
+                            <p class="step-note">The export lasts for the current Terminal window. In a new Terminal, run the first line again before starting Codex.</p>
+                        </li>
+                        <li>
+                            <div class="step-heading"><span>03</span><h4>Check the connection</h4></div>
+                            <p>Run <code>codex mcp list</code>, start Codex with <code>codex</code>, then type <code>/mcp</code>. Babylon should show as connected.</p>
+                        </li>
+                    </ol>
+                    <a class="agent-guide__docs" href="https://developers.openai.com/codex/mcp/" target="_blank" rel="noopener">Codex MCP docs <span aria-hidden="true">↗</span></a>
+                </article>
+
+                <article class="agent-guide" aria-labelledby="claude-guide-title">
+                    <header class="agent-guide__header">
+                        <div>
+                            <p class="command-label">Anthropic</p>
+                            <h3 id="claude-guide-title">Claude Code</h3>
+                        </div>
+                        <span class="agent-guide__badge">Terminal</span>
+                    </header>
+
+                    <ol class="agent-guide__steps">
+                        <li>
+                            <div class="step-heading"><span>01</span><h4>Install Claude Code</h4></div>
+                            <p>If <code>claude --version</code> does not work, paste this into Terminal and sign in.</p>
+                            <div class="command command--compact">
+                                <code id="claude-install-command">curl -fsSL https://claude.ai/install.sh | bash</code>
+                                <button type="button" data-copy-target="claude-install-command" aria-label="Copy Claude Code install command">Copy</button>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="step-heading"><span>02</span><h4>Give Claude access to Babylon</h4></div>
+                            <p>With Babylon open, paste this into Terminal. User scope makes Babylon available in every project on this Mac.</p>
+                            <div class="command">
+                                <code id="claude-mcp-command">claude mcp add --transport http --scope user babylon http://127.0.0.1:4519/mcp --header "Authorization: Bearer $(cat "$HOME/Library/Application Support/Babylon Laser Studio/mcp-token")"</code>
+                                <button type="button" data-copy-target="claude-mcp-command" aria-label="Copy Claude MCP command">Copy</button>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="step-heading"><span>03</span><h4>Check the connection</h4></div>
+                            <p>Run <code>claude mcp list</code>, start Claude Code with <code>claude</code>, then type <code>/mcp</code>. Babylon should show as connected.</p>
+                        </li>
+                    </ol>
+                    <a class="agent-guide__docs" href="https://docs.anthropic.com/en/docs/claude-code/mcp" target="_blank" rel="noopener">Claude Code MCP docs <span aria-hidden="true">↗</span></a>
+                </article>
+            </div>
+
+            <div class="first-prompt" aria-labelledby="first-prompt-title">
+                <div class="first-prompt__copy">
+                    <p class="command-label">Try it</p>
+                    <h3 id="first-prompt-title">Your first prompt</h3>
+                    <p>Once Babylon is connected, ask Codex or Claude Code to inspect the app before making changes.</p>
                 </div>
-                <div class="command-group">
-                    <p class="command-label">Claude Code</p>
-                    <div class="command">
-                        <code id="claude-mcp-command">claude mcp add --transport http babylon http://127.0.0.1:4519/mcp --header "Authorization: Bearer $(cat "$HOME/Library/Application Support/Babylon Laser Studio/mcp-token")"</code>
-                        <button type="button" data-copy-target="claude-mcp-command" aria-label="Copy Claude MCP command">Copy</button>
-                    </div>
+                <div class="command">
+                    <code id="first-mcp-prompt">Use the Babylon MCP. Call get_app_state, list my saved projects, and tell me which show is currently open. Do not change anything.</code>
+                    <button type="button" data-copy-target="first-mcp-prompt" aria-label="Copy first Babylon prompt">Copy</button>
                 </div>
+                <p class="mcp-safety"><strong>Laser safety:</strong> Agents can edit shows, control playback, and render previews. They cannot arm the laser or start physical laser output—you always do that yourself inside Babylon.</p>
             </div>
         </section>
 
