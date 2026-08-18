@@ -51,11 +51,11 @@
     const releaseStatus = document.getElementById("release-status");
     if (!releaseStatus) return;
 
-    if (available === 2) {
-        releaseStatus.textContent = "The macOS app and demo show are available now.";
+    if (downloads.mac?.url && downloads.beta?.url && downloads.show?.url) {
+        releaseStatus.textContent = "Choose the current alpha or the new larger-text beta.";
         releaseStatus.classList.add("is-ready");
-    } else if (available === 1) {
-        releaseStatus.textContent = "One alpha download is available now.";
+    } else if (available > 0) {
+        releaseStatus.textContent = `${available} download${available === 1 ? " is" : "s are"} available now.`;
         releaseStatus.classList.add("is-ready");
     }
 })();

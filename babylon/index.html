@@ -23,9 +23,9 @@
     <link rel="apple-touch-icon" href="../apple-touch-icon.png">
     <meta name="theme-color" content="#090a0c">
 
-    <link rel="stylesheet" href="styles.css">
-    <script src="download-config.js" defer></script>
-    <script src="app.js" defer></script>
+    <link rel="stylesheet" href="styles.css?v=20260819-beta1">
+    <script src="download-config.js?v=20260819-beta1" defer></script>
+    <script src="app.js?v=20260819-beta1" defer></script>
 </head>
 <body>
     <header class="nav">
@@ -45,7 +45,11 @@
             <h1 id="hero-title">Build shows.<br><em>Frame by frame.</em></h1>
             <div class="hero__actions">
                 <a class="button button--primary is-disabled" data-download="mac" aria-disabled="true">
-                    <span>Download Babylon</span>
+                    <span>Download current alpha</span>
+                    <span aria-hidden="true">↓</span>
+                </a>
+                <a class="button is-disabled" data-download="beta" aria-disabled="true">
+                    <span>Try larger-text beta</span>
                     <span aria-hidden="true">↓</span>
                 </a>
                 <a class="button is-disabled" data-download="show" aria-disabled="true">
@@ -67,9 +71,18 @@
                     <span class="file-row__type" aria-hidden="true">DMG</span>
                     <div class="file-row__name">
                         <h3>Babylon 0.1.0</h3>
-                        <p data-meta="mac">Universal macOS · 12.2 MB</p>
+                        <p data-meta="mac">Current alpha · Standard UI · Universal macOS · 12.2 MB</p>
                     </div>
                     <a class="file-row__link is-disabled" data-download="mac" aria-disabled="true">Download <span aria-hidden="true">↓</span></a>
+                </article>
+
+                <article class="file-row" data-release-card="beta">
+                    <span class="file-row__type file-row__type--beta" aria-hidden="true">BETA</span>
+                    <div class="file-row__name">
+                        <h3>Babylon 0.2.0 Beta 1</h3>
+                        <p data-meta="beta">Testing build · Larger UI text · Universal macOS · 12.3 MB</p>
+                    </div>
+                    <a class="file-row__link is-disabled" data-download="beta" aria-disabled="true">Download beta <span aria-hidden="true">↓</span></a>
                 </article>
 
                 <article class="file-row" data-release-card="show">
