@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Babylon — Visual laser show editor</title>
-    <meta name="description" content="Babylon is a simple editor for creating laser shows. Download the macOS alpha and sample project.">
+    <meta name="description" content="Babylon is a simple editor for creating laser shows. Download the latest macOS beta and sample project.">
     <meta name="author" content="Tushar Magar">
     <link rel="canonical" href="https://tusharmagar.github.io/babylon/">
 
@@ -23,9 +23,9 @@
     <link rel="apple-touch-icon" href="../apple-touch-icon.png">
     <meta name="theme-color" content="#090a0c">
 
-    <link rel="stylesheet" href="styles.css?v=20260820-beta2">
-    <script src="download-config.js?v=20260820-beta2" defer></script>
-    <script src="app.js?v=20260820-beta2" defer></script>
+    <link rel="stylesheet" href="styles.css?v=20260820-beta2-primary">
+    <script src="download-config.js?v=20260820-beta2-primary" defer></script>
+    <script src="app.js?v=20260820-beta2-primary" defer></script>
 </head>
 <body>
     <header class="nav">
@@ -34,7 +34,7 @@
             BABYLON
         </a>
         <div class="nav__right">
-            <span class="alpha">Alpha 0.1.0</span>
+            <span class="release-badge">Beta 2 · Updated UI</span>
             <a href="../">Tushar's portfolio <span aria-hidden="true">↗</span></a>
         </div>
     </header>
@@ -44,12 +44,12 @@
             <p class="eyebrow">Visual laser show editor · macOS</p>
             <h1 id="hero-title">Build shows.<br><em>Frame by frame.</em></h1>
             <div class="hero__actions">
-                <a class="button button--primary is-disabled" data-download="mac" aria-disabled="true">
-                    <span>Download current alpha</span>
+                <a class="button button--primary is-disabled" data-download="beta" aria-disabled="true">
+                    <span>Download Beta 2</span>
                     <span aria-hidden="true">↓</span>
                 </a>
-                <a class="button is-disabled" data-download="beta" aria-disabled="true">
-                    <span>Try updated UI beta</span>
+                <a class="button is-disabled" data-download="mac" aria-disabled="true">
+                    <span>Older Alpha 0.1.0</span>
                     <span aria-hidden="true">↓</span>
                 </a>
                 <a class="button is-disabled" data-download="show" aria-disabled="true">
@@ -63,26 +63,26 @@
         <section class="downloads" aria-labelledby="downloads-title">
             <div class="section-heading">
                 <p class="eyebrow">Downloads</p>
-                <h2 id="downloads-title">Everything you need.</h2>
+                <h2 id="downloads-title">Choose your build.</h2>
             </div>
 
             <div class="file-list">
-                <article class="file-row" data-release-card="mac">
-                    <span class="file-row__type" aria-hidden="true">DMG</span>
-                    <div class="file-row__name">
-                        <h3>Babylon 0.1.0</h3>
-                        <p data-meta="mac">Current alpha · Standard UI · Universal macOS · 12.2 MB</p>
-                    </div>
-                    <a class="file-row__link is-disabled" data-download="mac" aria-disabled="true">Download <span aria-hidden="true">↓</span></a>
-                </article>
-
                 <article class="file-row" data-release-card="beta">
                     <span class="file-row__type file-row__type--beta" aria-hidden="true">BETA</span>
                     <div class="file-row__name">
-                        <h3>Babylon 0.2.0 Beta 2</h3>
-                        <p data-meta="beta">Testing build · Updated UI · Universal macOS · 12.3 MB</p>
+                        <h3>Babylon 0.2.0 Beta 2 — Updated UI</h3>
+                        <p data-meta="beta">Recommended · Version 0.2.0-beta.2 · Universal macOS · 12.3 MB</p>
                     </div>
-                    <a class="file-row__link is-disabled" data-download="beta" aria-disabled="true">Download beta <span aria-hidden="true">↓</span></a>
+                    <a class="file-row__link is-disabled" data-download="beta" aria-disabled="true">Download Beta 2 <span aria-hidden="true">↓</span></a>
+                </article>
+
+                <article class="file-row" data-release-card="mac">
+                    <span class="file-row__type" aria-hidden="true">ALPHA</span>
+                    <div class="file-row__name">
+                        <h3>Babylon 0.1.0 — Standard UI</h3>
+                        <p data-meta="mac">Older build · Version 0.1.0 · Universal macOS · 12.2 MB</p>
+                    </div>
+                    <a class="file-row__link is-disabled" data-download="mac" aria-disabled="true">Download older Alpha <span aria-hidden="true">↓</span></a>
                 </article>
 
                 <article class="file-row" data-release-card="show">
@@ -212,7 +212,7 @@ codex mcp add babylon --url http://127.0.0.1:4519/mcp --bearer-token-env-var BAB
         </section>
 
         <section class="feedback">
-            <p>Trying the alpha? <a href="mailto:tushmag@gmail.com?subject=Babylon%20alpha%20feedback">Send feedback <span aria-hidden="true">↗</span></a></p>
+            <p>Testing Babylon? <a href="mailto:tushmag@gmail.com?subject=Babylon%20Beta%202%20feedback">Send feedback <span aria-hidden="true">↗</span></a></p>
         </section>
     </main>
 

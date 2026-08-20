@@ -85,7 +85,7 @@ main,
 .footer a { transition: color 160ms ease; }
 .nav__right a:hover,
 .footer a:hover { color: var(--ink); }
-.alpha { color: var(--acid); }
+.release-badge { color: var(--acid); }
 
 .hero {
     min-height: min(720px, calc(100svh - 76px));
@@ -546,7 +546,7 @@ h2 {
 
 @media (max-width: 720px) {
     .nav { min-height: 68px; }
-    .alpha { display: none; }
+    .release-badge { display: none; }
     .nav__right a { font-size: 0; }
     .nav__right a::before { content: "Portfolio ↗"; font-size: 0.62rem; }
     .hero { min-height: auto; padding-block: 6rem; }

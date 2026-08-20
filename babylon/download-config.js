@@ -3,12 +3,12 @@ window.BABYLON_DOWNLOADS = {
     mac: {
         url: "https://github.com/tusharmagar/tusharmagar.github.io/releases/download/babylon-v0.1.0/Babylon-0.1.0-macOS-universal.dmg",
         filename: "Babylon-0.1.0-macOS-universal.dmg",
-        meta: "Current alpha · Standard UI · Universal macOS · 12.2 MB"
+        meta: "Older build · Version 0.1.0 · Universal macOS · 12.2 MB"
     },
     beta: {
-        url: "https://github.com/tusharmagar/tusharmagar.github.io/releases/download/babylon-v0.2.0-beta.2/Babylon-0.2.0-beta.2-updated-ui-macOS-universal.dmg",
+        url: "https://github.com/tusharmagar/tusharmagar.github.io/releases/download/babylon-v0.2.0-beta.2-updated-ui/Babylon-0.2.0-beta.2-updated-ui-macOS-universal.dmg",
         filename: "Babylon-0.2.0-beta.2-updated-ui-macOS-universal.dmg",
-        meta: "Testing build · Updated UI · Universal macOS · 12.3 MB"
+        meta: "Recommended · Version 0.2.0-beta.2 · Universal macOS · 12.3 MB"
     },
     show: {
         url: "https://github.com/tusharmagar/tusharmagar.github.io/releases/download/babylon-v0.1.0/Pretty-Sweet-v2.babylonshow",

@@ -52,7 +52,7 @@
     if (!releaseStatus) return;
 
     if (downloads.mac?.url && downloads.beta?.url && downloads.show?.url) {
-        releaseStatus.textContent = "Choose the current alpha or the new updated-UI beta.";
+        releaseStatus.textContent = "Recommended download: Babylon 0.2.0-beta.2 (Updated UI).";
         releaseStatus.classList.add("is-ready");
     } else if (available > 0) {
         releaseStatus.textContent = `${available} download${available === 1 ? " is" : "s are"} available now.`;
