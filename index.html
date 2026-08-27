@@ -185,7 +185,7 @@
         <section id="projects" aria-labelledby="projects-h">
             <span class="section-marker"><span class="section-marker__num">02</span> projects</span>
             <h2 id="projects-h" data-beat-glyph="section">Projects.</h2>
-            <p style="max-width: 32rem; margin-bottom: 2rem; color: var(--ink-soft); font-size: 0.95rem;">A collection of my work spanning web applications, AI solutions, and electronics projects.</p>
+            <p style="max-width: 32rem; margin-bottom: 2rem; color: var(--ink-soft); font-size: 0.95rem;">A collection of my work spanning creative tools, AI systems, web applications, and electronics projects.</p>
             <p class="section-hint">Click any project row to view details.</p>
 
             <ul class="projects__list" id="projects-list">
@@ -314,22 +314,58 @@
                 <li class="project">
                     <div class="project__head" role="button" tabindex="0" aria-expanded="false">
                         <span class="project__num">06</span>
-                        <span class="project__title">Babylon<small>A visual editor for building laser shows scene by scene.</small></span>
-                        <span class="project__year">2025</span>
+                        <span class="project__title">Babylon<small>AI-assisted software for designing, controlling, and automating laser shows.</small></span>
+                        <span class="project__year">2025—26</span>
                     </div>
                     <div class="project__body">
                         <div class="project__inner">
-                            <p>Built a desktop editor for creating, arranging, and playing laser shows.</p>
+                            <div class="project__gallery" aria-label="Babylon project gallery">
+                                <figure class="project__image"><img data-src="images/babylon/node-editor.png" alt="Babylon node editor converting visual media into laser-ready paths"></figure>
+                                <figure class="project__image"><img data-src="images/babylon/image-to-laser.gif" alt="Babylon converting an image into a laser graphic"></figure>
+                                <figure class="project__image"><img data-src="images/babylon/video-to-laser.gif" alt="Babylon converting video frames into laser graphics"></figure>
+                            </div>
+                            <p>Babylon began with a hard graphics problem: a laser draws with one continuous beam, while images are made from pixels. I built tools that turn media into clean, ordered vector paths, then expanded the work into a broader creative system for live shows.</p>
                             <ul>
-                                <li>Design and arrange laser show scenes in a visual editor</li>
-                                <li>Save and share projects as <code>.babylonshow</code> files</li>
-                                <li>Available as a signed and notarized universal macOS app</li>
+                                <li>Built image- and video-to-laser pipelines, including single-centerline ridge detection for cleaner beam paths</li>
+                                <li>Developed a timeline-based macOS editor with audio waveforms, cues, keyframes, projection zones, simulation, and reusable <code>.babylonshow</code> projects</li>
+                                <li>Connected directly to LaserCube hardware with flow-controlled streaming, calibration, safety stops, and audience-protection masks</li>
+                                <li>Added a local MCP server so Codex and Claude can edit shows, inspect previews, and operate the timeline while laser arming stays human-only</li>
+                                <li>Built a music-analysis workbench for beats, downbeats, energy, structure, and audio context to support future music-aware show generation</li>
                             </ul>
-                            <div class="tags"><span>macOS</span><span>Creative tools</span><span>Laser control</span></div>
+                            <p class="project__note"><strong>Residency &amp; outcomes.</strong> Developed through Lossfunk, then selected for Forma's 15-person Bristol residency with a $10,000 grant to keep building Babylon. LaserOS supported hardware testing with a €2,200 LaserCube, and I submitted an art paper on recreating continuous-line Batik as long-exposure laser light painting.</p>
+                            <div class="tags"><span>Rust</span><span>Tauri</span><span>React</span><span>TypeScript</span><span>MCP</span><span>LaserCube</span></div>
                             <div class="project__links">
-                                <a href="babylon/">Try Babylon</a>
                                 <a href="https://x.com/TusharMagar_/status/1877554582068588733" target="_blank" rel="noopener">Demo 1</a>
                                 <a href="https://x.com/TusharMagar_/status/1873954681489416638" target="_blank" rel="noopener">Demo 2</a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="project">
+                    <div class="project__head" role="button" tabindex="0" aria-expanded="false">
+                        <span class="project__num">07</span>
+                        <span class="project__title">Atelier / MOCO X100 Toolkit<small>A reversible redesign of my car's 13.1-inch Android head-unit interface.</small></span>
+                        <span class="project__year">2026</span>
+                    </div>
+                    <div class="project__body">
+                        <div class="project__inner">
+                            <div class="project__gallery" aria-label="Atelier car interface gallery">
+                                <figure class="project__image"><img data-src="images/moco-x100/atelier-dashboard.png" alt="Atelier car dashboard with a burgundy Thar, clock, and app dock"></figure>
+                                <figure class="project__image"><img data-src="images/moco-x100/atelier-welcome.png" alt="Atelier pixel welcome animation on the car head unit"></figure>
+                                <figure class="project__image"><img data-src="images/moco-x100/atelier-apps.png" alt="Atelier curated app drawer on the car head unit"></figure>
+                                <figure class="project__image"><img data-src="images/moco-x100/x100-bridge.png" alt="X100 Bridge diagnostics for ADB and USB roles"></figure>
+                            </div>
+                            <p>Replaced the cluttered stock Home layer on a MOCO X100 / FlyAudio G85 head unit with Atelier: a minimal, vehicle-specific launcher built and tested on the real unit in my car.</p>
+                            <ul>
+                                <li>Designed a live dashboard with clock, date, Thar artwork, an eight-item dock, curated app drawer, reactive mute, and screen curtain</li>
+                                <li>Built X100 Bridge to enable reversible ADB-over-Wi-Fi and expose MediaTek USB-role diagnostics</li>
+                                <li>Preserved the stock launcher, MCU, CAN, radio, climate, camera, Bluetooth, and recovery path instead of flashing replacement firmware</li>
+                                <li>Documented the device architecture, safety boundaries, build process, and one-command launcher switching</li>
+                            </ul>
+                            <div class="tags"><span>Java</span><span>Android</span><span>ADB</span><span>Automotive UI</span><span>Systems research</span></div>
+                            <div class="project__links">
+                                <a href="https://github.com/tusharmagar/moco-x100-toolkit" target="_blank" rel="noopener">Code &amp; documentation</a>
                             </div>
                         </div>
                     </div>
@@ -339,7 +375,7 @@
             <ul class="projects__list" id="more-projects">
                 <li class="project">
                     <div class="project__head" role="button" tabindex="0" aria-expanded="false">
-                        <span class="project__num">07</span>
+                        <span class="project__num">08</span>
                         <span class="project__title">Personal Portfolio Website<small>A sleek single-page site showcasing my skills, projects, and journey.</small></span>
                         <span class="project__year">2024</span>
                     </div>
@@ -362,7 +398,7 @@
 
                 <li class="project">
                     <div class="project__head" role="button" tabindex="0" aria-expanded="false">
-                        <span class="project__num">08</span>
+                        <span class="project__num">09</span>
                         <span class="project__title">Electronics &amp; Hardware Projects<small>Tinkered around a lot with electronics and really enjoyed it.</small></span>
                         <span class="project__year">2020 —</span>
                     </div>
@@ -386,7 +422,7 @@
 
                 <li class="project">
                     <div class="project__head" role="button" tabindex="0" aria-expanded="false">
-                        <span class="project__num">09</span>
+                        <span class="project__num">10</span>
                         <span class="project__title">PopJobList<small>Job scraper that aggregates jobs from Ashby &amp; Greenhouse across 1000s of companies.</small></span>
                         <span class="project__year">2024</span>
                     </div>
@@ -410,7 +446,7 @@
 
                 <li class="project">
                     <div class="project__head" role="button" tabindex="0" aria-expanded="false">
-                        <span class="project__num">10</span>
+                        <span class="project__num">11</span>
                         <span class="project__title">Typing Bot<small>MonkeyType automation with human-like typing patterns and natural variations.</small></span>
                         <span class="project__year">2023</span>
                     </div>
@@ -434,7 +470,7 @@
 
                 <li class="project">
                     <div class="project__head" role="button" tabindex="0" aria-expanded="false">
-                        <span class="project__num">11</span>
+                        <span class="project__num">12</span>
                         <span class="project__title">Solarpunk Art Generator<small>AI art prompts for sustainable futuristic cityscapes blending technology with nature.</small></span>
                         <span class="project__year">2024</span>
                     </div>
@@ -573,6 +609,13 @@
             <details class="achievements__group">
                 <summary>Recognitions &amp; Fellowships</summary>
                 <ul class="achievements__list">
+                    <li class="achievement">
+                        <div class="achievement__head">
+                            <span class="achievement__title"><strong>Forma Residency — $10,000 Grant</strong></span>
+                            <span class="achievement__date">Jul–Aug 2026 · Bristol</span>
+                        </div>
+                        <p class="achievement__body">Selected for Forma's 15-person in-person residency in Bristol and awarded a $10,000 grant to continue developing Babylon.</p>
+                    </li>
                     <li class="achievement">
                         <div class="achievement__head">
                             <span class="achievement__title"><strong>AI Resident @ Lossfunk</strong></span>
