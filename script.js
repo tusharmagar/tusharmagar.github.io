@@ -288,10 +288,8 @@
     }
 
     /* ================================================================
-       Ambient music — always tries to play on every page load.
-       Falls back to user gestures until playback successfully starts.
-       The toggle still pauses for the current session, but we do not
-       persist an "off" preference — the song restarts on reload.
+       Ambient music — opt-in only. It starts exclusively from the
+       speaker control and yields whenever a project video is played.
        ================================================================ */
     function bindAmbient() {
         const btn = document.getElementById("ambient-toggle");
@@ -299,112 +297,36 @@
         if (!btn || !audio) return;
 
         audio.volume = 0.35;
-        audio.preload = "auto";
+        audio.preload = "none";
 
         const setPressed = (on) => {
             btn.setAttribute("aria-pressed", String(on));
             btn.setAttribute("aria-label", on ? "Pause ambient music" : "Play ambient music");
         };
 
-        const tryPlay = async () => {
-            try {
-                await audio.play();
-                setPressed(true);
-                return true;
-            } catch {
-                return false;
-            }
-        };
-
-        const gestureEvents = ["pointerup", "click", "keydown", "touchend", "mouseup", "wheel", "scroll", "touchmove"];
-        let unlocking = false;
-        const hint = document.createElement("button");
-        hint.type = "button";
-        hint.className = "ambient-hint";
-        hint.textContent = "Click to set the mood";
-        hint.hidden = true;
-        document.body.appendChild(hint);
-
-        const showHint = () => {
-            if (audio.paused) hint.hidden = false;
-        };
-
-        const hideHint = () => {
-            hint.hidden = true;
-        };
-
-        const removeGestureFallback = () => {
-            gestureEvents.forEach(ev => window.removeEventListener(ev, onGesture, true));
-            hideHint();
-        };
-
-        // Keep retrying on real gestures until playback actually succeeds.
-        const onGesture = async (event) => {
-            // If the first gesture is on the speaker button, let its click
-            // handler own the play/pause behavior to avoid a race.
-            if (event.target instanceof Element && event.target.closest("#ambient-toggle")) {
-                return;
-            }
-
-            if (!audio.paused) {
-                removeGestureFallback();
-                return;
-            }
-            if (unlocking) return;
-
-            unlocking = true;
-            const started = await tryPlay();
-            unlocking = false;
-            if (started) {
-                removeGestureFallback();
-            } else {
-                showHint();
-            }
-        };
-
-        // Always try on load — no localStorage gate.
-        tryPlay().then(started => {
-            if (started) {
-                removeGestureFallback();
-            } else {
-                // Show a light nudge if blocked on load.
-                setTimeout(showHint, 1200);
-            }
-        });
-
-        // If autoplay is blocked, keep listening until a valid user gesture
-        // successfully starts playback.
-        gestureEvents.forEach(ev =>
-            window.addEventListener(ev, onGesture, { capture: true, passive: true })
-        );
-
-        hint.addEventListener("click", async () => {
-            if (unlocking) return;
-            unlocking = true;
-            const started = await tryPlay();
-            unlocking = false;
-            if (started) removeGestureFallback();
-        });
+        audio.pause();
+        setPressed(false);
 
         btn.addEventListener("click", async () => {
             if (audio.paused) {
-                const started = await tryPlay();
-                if (!started) {
+                try {
+                    await audio.play();
+                } catch {
                     console.warn("Ambient: could not play from toggle click.");
-                    showHint();
-                    return;
+                    setPressed(false);
                 }
-                removeGestureFallback();
             } else {
                 audio.pause();
-                setPressed(false);
             }
         });
 
         audio.addEventListener("pause", () => setPressed(false));
-        audio.addEventListener("playing", () => {
-            setPressed(true);
-            removeGestureFallback();
+        audio.addEventListener("playing", () => setPressed(true));
+
+        document.querySelectorAll(".project__image video").forEach(video => {
+            video.addEventListener("play", () => {
+                if (!audio.paused) audio.pause();
+            });
         });
     }
 })();

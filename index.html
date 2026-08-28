@@ -33,7 +33,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="styles.css?v=20260828-2">
+    <link rel="stylesheet" href="styles.css?v=20260828-3">
 </head>
 <body>
 
@@ -200,8 +200,8 @@
                             <div class="project__gallery" aria-label="Babylon project gallery">
                                 <figure class="project__image project__image--wide"><img data-src="images/babylon/Screenshot 2026-08-28 at 11.07.57.png" alt="Babylon creative laser workspace and project home screen"></figure>
                                 <figure class="project__image project__image--wide"><img data-src="images/babylon/Screenshot 2026-07-29 at 18.00.20.png" alt="Babylon multitrack timeline editor with animation keyframes"></figure>
-                                <figure class="project__image" aria-label="Timeline-driven laser show demo video"><video controls playsinline preload="metadata" data-src="images/babylon/babylon-timeline-demo.mp4" poster="images/babylon/babylon-timeline-demo-poster.jpg"></video></figure>
-                                <figure class="project__image" aria-label="Babylon live laser projection demo video"><video controls playsinline preload="metadata" data-src="images/babylon/babylon-live-demo.mp4" poster="images/babylon/babylon-live-demo-poster.jpg"></video></figure>
+                                <figure class="project__image project__image--portrait" aria-label="Timeline-driven laser show demo video"><video controls playsinline preload="metadata" data-src="images/babylon/babylon-timeline-demo.mp4" poster="images/babylon/babylon-timeline-demo-poster.jpg"></video></figure>
+                                <figure class="project__image project__image--portrait" aria-label="Babylon live laser projection demo video"><video controls playsinline preload="metadata" data-src="images/babylon/babylon-live-demo.mp4" poster="images/babylon/babylon-live-demo-poster.jpg"></video></figure>
                                 <figure class="project__image project__image--wide"><img data-src="images/babylon/node-editor.png" alt="Babylon node editor converting visual media into laser-ready paths"></figure>
                                 <figure class="project__image"><img data-src="images/babylon/image-to-laser.gif" alt="Babylon converting an image into a laser graphic"></figure>
                                 <figure class="project__image"><img data-src="images/babylon/video-to-laser.gif" alt="Babylon converting video frames into laser graphics"></figure>
@@ -704,8 +704,8 @@
 
     </main>
 
-    <!-- Ambient music toggle (speaker icon, mute/unmute = pause/play) -->
-    <button id="ambient-toggle" class="ambient" type="button" aria-pressed="false" aria-label="Toggle ambient music">
+    <!-- Ambient music is opt-in and only starts from this control -->
+    <button id="ambient-toggle" class="ambient" type="button" aria-pressed="false" aria-label="Play ambient music">
         <svg class="icon-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
             <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
@@ -721,6 +721,6 @@
         <source src="audio/monochrome-dream.mp3" type="audio/mpeg">
     </audio>
 
-    <script src="script.js?v=20260828-2"></script>
+    <script src="script.js?v=20260828-3"></script>
 </body>
 </html>

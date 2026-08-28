@@ -690,6 +690,7 @@ hr.rule { border: 0; border-top: 1px solid var(--rule); margin: 0; }
     grid-column: 1 / -1;
 }
 .project__gallery .project__image--wide { grid-column: 1 / -1; }
+.project__gallery .project__image--portrait { aspect-ratio: 9 / 16; }
 .project__gallery .project__image img,
 .project__gallery .project__image video { object-fit: contain; }
 @media (max-width: 540px) {
@@ -895,30 +896,6 @@ hr.rule { border: 0; border-top: 1px solid var(--rule); margin: 0; }
 
 .ambient[aria-pressed="true"] .icon-off { display: none; }
 .ambient[aria-pressed="false"] .icon-on { display: none; }
-
-.ambient-hint {
-    position: fixed;
-    right: 4.25rem;
-    bottom: 1.3rem;
-    z-index: 101;
-    font-family: var(--mono);
-    font-size: 0.66rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    padding: 0.45rem 0.7rem;
-    background: color-mix(in srgb, var(--bg) 86%, transparent);
-    color: var(--ink-soft);
-    border: 1px solid var(--rule-strong);
-    border-radius: 999px;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    transition: color 200ms var(--ease), border-color 200ms var(--ease);
-}
-
-.ambient-hint:hover {
-    color: var(--accent);
-    border-color: var(--accent);
-}
 
 /* ----- 14. Reduced motion ------------------------------------ */
 @media (prefers-reduced-motion: reduce) {
