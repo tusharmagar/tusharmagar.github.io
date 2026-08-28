@@ -33,7 +33,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css?v=20260828-2">
 </head>
 <body>
 
@@ -192,6 +192,42 @@
                 <li class="project">
                     <div class="project__head" role="button" tabindex="0" aria-expanded="false">
                         <span class="project__num">01</span>
+                        <span class="project__title">Babylon<small>A complete studio for designing, sequencing, and controlling laser shows.</small></span>
+                        <span class="project__year">2025—26</span>
+                    </div>
+                    <div class="project__body">
+                        <div class="project__inner">
+                            <div class="project__gallery" aria-label="Babylon project gallery">
+                                <figure class="project__image project__image--wide"><img data-src="images/babylon/Screenshot 2026-08-28 at 11.07.57.png" alt="Babylon creative laser workspace and project home screen"></figure>
+                                <figure class="project__image project__image--wide"><img data-src="images/babylon/Screenshot 2026-07-29 at 18.00.20.png" alt="Babylon multitrack timeline editor with animation keyframes"></figure>
+                                <figure class="project__image" aria-label="Timeline-driven laser show demo video"><video controls playsinline preload="metadata" data-src="images/babylon/babylon-timeline-demo.mp4" poster="images/babylon/babylon-timeline-demo-poster.jpg"></video></figure>
+                                <figure class="project__image" aria-label="Babylon live laser projection demo video"><video controls playsinline preload="metadata" data-src="images/babylon/babylon-live-demo.mp4" poster="images/babylon/babylon-live-demo-poster.jpg"></video></figure>
+                                <figure class="project__image project__image--wide"><img data-src="images/babylon/node-editor.png" alt="Babylon node editor converting visual media into laser-ready paths"></figure>
+                                <figure class="project__image"><img data-src="images/babylon/image-to-laser.gif" alt="Babylon converting an image into a laser graphic"></figure>
+                                <figure class="project__image"><img data-src="images/babylon/video-to-laser.gif" alt="Babylon converting video frames into laser graphics"></figure>
+                            </div>
+                            <p>Babylon is a complete macOS studio for building laser shows: create laser-ready graphics, sequence a full performance to music, preview the result, and stream it to real hardware from one workspace.</p>
+                            <ul>
+                                <li>Built a full multitrack timeline editor with audio waveforms, clip splitting, shape and audio tracks, playback controls, zoom, undo/redo, and reusable <code>.babylonshow</code> projects</li>
+                                <li>Added per-property animation lanes and keyframes for size, position, color, brightness, and rotation, with hold and interpolated transitions</li>
+                                <li>Developed image- and video-to-laser pipelines, including single-centerline ridge detection for cleaner continuous-beam paths</li>
+                                <li>Connected directly to LaserCube hardware with flow-controlled streaming, calibration, projection zones, safety stops, and audience-protection masks</li>
+                                <li>Added a local MCP server so Codex and Claude can edit shows, inspect previews, and operate the timeline while laser arming stays human-only</li>
+                                <li>Built a music-analysis workbench for beats, downbeats, energy, structure, and audio context to support future music-aware show generation</li>
+                            </ul>
+                            <p class="project__note"><strong>Residency &amp; outcomes.</strong> Developed through Lossfunk, then selected for Forma's 15-person Bristol residency with a $10,000 grant to keep building Babylon. LaserOS supported hardware testing with a €2,200 LaserCube, and I submitted an art paper on recreating continuous-line Batik as long-exposure laser light painting.</p>
+                            <div class="tags"><span>Rust</span><span>Tauri</span><span>React</span><span>TypeScript</span><span>MCP</span><span>LaserCube</span></div>
+                            <div class="project__links">
+                                <a href="https://x.com/TusharMagar_/status/1877554582068588733" target="_blank" rel="noopener">Demo 1</a>
+                                <a href="https://x.com/TusharMagar_/status/1873954681489416638" target="_blank" rel="noopener">Demo 2</a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="project">
+                    <div class="project__head" role="button" tabindex="0" aria-expanded="false">
+                        <span class="project__num">02</span>
                         <span class="project__title">Daimyo<small>AI-powered business-intelligence copilot that automates reporting, alerts, and data queries for restaurants.</small></span>
                         <span class="project__year">2024</span>
                     </div>
@@ -218,7 +254,7 @@
 
                 <li class="project">
                     <div class="project__head" role="button" tabindex="0" aria-expanded="false">
-                        <span class="project__num">02</span>
+                        <span class="project__num">03</span>
                         <span class="project__title">ReviewSnipe<small>Automated Google review monitoring and AI-generated WhatsApp replies to boost customer engagement.</small></span>
                         <span class="project__year">2024</span>
                     </div>
@@ -243,7 +279,7 @@
 
                 <li class="project">
                     <div class="project__head" role="button" tabindex="0" aria-expanded="false">
-                        <span class="project__num">03</span>
+                        <span class="project__num">04</span>
                         <span class="project__title">Smart Charging Module<small>An intelligent charging controller that optimizes battery health through adaptive current regulation.</small></span>
                         <span class="project__year">2024</span>
                     </div>
@@ -266,7 +302,7 @@
 
                 <li class="project">
                     <div class="project__head" role="button" tabindex="0" aria-expanded="false">
-                        <span class="project__num">04</span>
+                        <span class="project__num">05</span>
                         <span class="project__title">Arduino Pocket Watch<small>A wearable Arduino-powered pocket watch that tells time and runs mini-games.</small></span>
                         <span class="project__year">2021</span>
                     </div>
@@ -290,7 +326,7 @@
 
                 <li class="project">
                     <div class="project__head" role="button" tabindex="0" aria-expanded="false">
-                        <span class="project__num">05</span>
+                        <span class="project__num">06</span>
                         <span class="project__title">Theia<small>Wearable assistive tech delivering audio &amp; haptic feedback for enhanced spatial awareness.</small></span>
                         <span class="project__year">2022</span>
                     </div>
@@ -306,37 +342,6 @@
                             <div class="tags"><span>C++</span><span>Unreal Engine</span><span>Blender</span></div>
                             <div class="project__links">
                                 <a href="https://github.com/tusharmagar/THEIA" target="_blank" rel="noopener">Code</a>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-
-                <li class="project">
-                    <div class="project__head" role="button" tabindex="0" aria-expanded="false">
-                        <span class="project__num">06</span>
-                        <span class="project__title">Babylon<small>AI-assisted software for designing, controlling, and automating laser shows.</small></span>
-                        <span class="project__year">2025—26</span>
-                    </div>
-                    <div class="project__body">
-                        <div class="project__inner">
-                            <div class="project__gallery" aria-label="Babylon project gallery">
-                                <figure class="project__image"><img data-src="images/babylon/node-editor.png" alt="Babylon node editor converting visual media into laser-ready paths"></figure>
-                                <figure class="project__image"><img data-src="images/babylon/image-to-laser.gif" alt="Babylon converting an image into a laser graphic"></figure>
-                                <figure class="project__image"><img data-src="images/babylon/video-to-laser.gif" alt="Babylon converting video frames into laser graphics"></figure>
-                            </div>
-                            <p>Babylon began with a hard graphics problem: a laser draws with one continuous beam, while images are made from pixels. I built tools that turn media into clean, ordered vector paths, then expanded the work into a broader creative system for live shows.</p>
-                            <ul>
-                                <li>Built image- and video-to-laser pipelines, including single-centerline ridge detection for cleaner beam paths</li>
-                                <li>Developed a timeline-based macOS editor with audio waveforms, cues, keyframes, projection zones, simulation, and reusable <code>.babylonshow</code> projects</li>
-                                <li>Connected directly to LaserCube hardware with flow-controlled streaming, calibration, safety stops, and audience-protection masks</li>
-                                <li>Added a local MCP server so Codex and Claude can edit shows, inspect previews, and operate the timeline while laser arming stays human-only</li>
-                                <li>Built a music-analysis workbench for beats, downbeats, energy, structure, and audio context to support future music-aware show generation</li>
-                            </ul>
-                            <p class="project__note"><strong>Residency &amp; outcomes.</strong> Developed through Lossfunk, then selected for Forma's 15-person Bristol residency with a $10,000 grant to keep building Babylon. LaserOS supported hardware testing with a €2,200 LaserCube, and I submitted an art paper on recreating continuous-line Batik as long-exposure laser light painting.</p>
-                            <div class="tags"><span>Rust</span><span>Tauri</span><span>React</span><span>TypeScript</span><span>MCP</span><span>LaserCube</span></div>
-                            <div class="project__links">
-                                <a href="https://x.com/TusharMagar_/status/1877554582068588733" target="_blank" rel="noopener">Demo 1</a>
-                                <a href="https://x.com/TusharMagar_/status/1873954681489416638" target="_blank" rel="noopener">Demo 2</a>
                             </div>
                         </div>
                     </div>
@@ -716,6 +721,6 @@
         <source src="audio/monochrome-dream.mp3" type="audio/mpeg">
     </audio>
 
-    <script src="script.js"></script>
+    <script src="script.js?v=20260828-2"></script>
 </body>
 </html>

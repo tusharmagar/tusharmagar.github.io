@@ -228,7 +228,7 @@
             const toggle = () => {
                 const open = project.classList.toggle("is-open");
                 head.setAttribute("aria-expanded", String(open));
-                if (open) loadImagesIn(project);
+                if (open) loadMediaIn(project);
             };
             head.addEventListener("click", toggle);
             head.addEventListener("keydown", e => {
@@ -278,11 +278,12 @@
         });
     }
 
-    function loadImagesIn(scope) {
-        scope.querySelectorAll("img[data-src]").forEach(img => {
-            if (!img.dataset.src) return;
-            img.src = img.dataset.src;
-            delete img.dataset.src;
+    function loadMediaIn(scope) {
+        scope.querySelectorAll("img[data-src], video[data-src]").forEach(media => {
+            if (!media.dataset.src) return;
+            media.src = media.dataset.src;
+            delete media.dataset.src;
+            if (media instanceof HTMLVideoElement) media.load();
         });
     }
 
