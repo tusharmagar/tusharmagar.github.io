@@ -401,18 +401,16 @@ hr.rule { border: 0; border-top: 1px solid var(--rule); margin: 0; }
     .about__photo { width: 100%; max-width: 18rem; }
 }
 
-/* ----- Generic dot-matrix overlay for all photo containers ---- */
+/* ----- Dot-matrix overlay for selected photo containers ---- */
 .dotmatrix,
-.about__photo,
-.project__image {
+.about__photo {
     position: relative;
     overflow: hidden;
     isolation: isolate;
 }
 
 .dotmatrix::before,
-.about__photo::before,
-.project__image::before {
+.about__photo::before {
     content: "";
     position: absolute;
     inset: 0;
@@ -425,12 +423,10 @@ hr.rule { border: 0; border-top: 1px solid var(--rule); margin: 0; }
 
 /* Hover anywhere on the container reveals the underlying image */
 .dotmatrix:hover::before,
-.about__photo:hover::before,
-.project__image:hover::before { opacity: 0; }
+.about__photo:hover::before { opacity: 0; }
 
 /* Touch / focus also reveals (keyboard + mobile) */
-.about__photo:focus-within::before,
-.project__image:focus-within::before { opacity: 0; }
+.about__photo:focus-within::before { opacity: 0; }
 
 .about p { font-size: 0.95rem; line-height: 1.75; max-width: 34rem; }
 
